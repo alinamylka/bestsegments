@@ -15,7 +15,7 @@ export class AuthorizeService {
         this.oauthService.configure(authConfig);
         this.oauthService.tokenValidationHandler = new JwksValidationHandler();
         this.oauthService.tryLogin();
-        this.oauthService.events.subscribe(({ type }: OAuthEvent) => {
+        this.oauthService.events.subscribe(({type}: OAuthEvent) => {
             switch (type) {
                 case 'token_received':
                     console.log('received' + type);
@@ -23,15 +23,22 @@ export class AuthorizeService {
             }
         });
     }
+
     login() {
         this.oauthService.initLoginFlow();
     }
+
     token() {
+        if (!this.oauthService.hasValidAccessToken()) {
+            this.oauthService.refreshToken();
+        }
         return this.oauthService.getAccessToken();
     }
-    hasToken(){
+
+    hasToken() {
         return this.oauthService.hasValidAccessToken();
     }
+
     logout() {
     }
 }

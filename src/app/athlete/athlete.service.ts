@@ -11,13 +11,10 @@ export class AthleteService {
 
     private athleteURL = 'https://www.strava.com/api/v3/athlete';
 
-    constructor(private http: HttpClient, private authService: AuthorizeService) {
+    constructor(private http: HttpClient) {
     }
 
     athleteInfo(): Observable<Athlete> {
-        return this.http.get<Athlete>(this.athleteURL, {
-            headers: new HttpHeaders()
-                .set('Authorization', 'Bearer ' + this.authService.token())
-        });
+        return this.http.get<Athlete>(this.athleteURL);
     }
 }
