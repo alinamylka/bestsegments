@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Athlete} from '../athlete';
+import {AthleteDto} from './athleteDto';
 import {AthleteService} from './athlete.service';
 
 @Component({
@@ -8,10 +8,10 @@ import {AthleteService} from './athlete.service';
     styleUrls: ['./athlete.component.css']
 })
 export class AthleteComponent implements OnInit {
-    public athlete: Athlete;
+    public athlete: AthleteDto;
 
     constructor(service: AthleteService) {
-        service.athleteInfo().subscribe((data: Athlete) => this.athlete = data);
+        service.athleteInfo().subscribe((data: AthleteDto) => this.athlete = data);
     }
 
     get firstName(): string {

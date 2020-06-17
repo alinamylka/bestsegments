@@ -1,4 +1,4 @@
-export interface Athlete {
+export interface AthleteDto {
     id: number;
     username: string;
     firstname: string;
