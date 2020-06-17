@@ -1,2 +1,8 @@
-<p>segment works!</p>
-{{name}}
+This are some semgments from Bern
+<ul class="segments">
+    <li *ngFor="let segment of segments"
+        [class.selected]="segment === selectedSegment"
+        (click)="showSegment()">
+        <span class="badge">{{segment.climb_category}}</span> {{segment.name}}
+    </li>
+</ul>
