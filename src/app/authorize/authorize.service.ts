@@ -6,33 +6,13 @@ import {authConfig} from './authorize.config';
     providedIn: 'root'
 })
 export class AuthorizeService {
-
     constructor(private oauthService: OAuthService) {
-        this.configure();
-    }
-
-    configure() {
         this.oauthService.configure(authConfig);
-        this.oauthService.tokenValidationHandler = new JwksValidationHandler();
         this.oauthService.tryLogin();
-        this.oauthService.events.subscribe(({type}: OAuthEvent) => {
-            switch (type) {
-                case 'token_received':
-                    console.log('received' + type);
-                    break;
-            }
-        });
     }
 
     login() {
         this.oauthService.initLoginFlow();
-    }
-
-    token() {
-        if (!this.oauthService.hasValidAccessToken()) {
-            this.oauthService.refreshToken();
-        }
-        return this.oauthService.getAccessToken();
     }
 
     hasToken() {
@@ -40,5 +20,6 @@ export class AuthorizeService {
     }
 
     logout() {
+        this.oauthService.logOut();
     }
 }
