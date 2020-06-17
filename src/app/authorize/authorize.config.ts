@@ -11,6 +11,6 @@ authConfig = {
     scope: 'read_all',
     showDebugInformation: true,
     timeoutFactor: 0.01,
-    dummyClientSecret: '',
+    dummyClientSecret: '4449ea3ae9938d9ec7766a53bf271d875580ec9f',
     oidc: false
 };
