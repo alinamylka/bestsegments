@@ -3,18 +3,18 @@ import {AthleteDto} from './athlete/athleteDto';
 export class Athlete {
     constructor(private id: number,
                 private username: string,
-                private firstname: string,
-                private lastname: string,
+                public firstname: string,
+                public lastname: string,
                 private city: string,
                 private state: string,
-                private country: string,
+                public country: string,
                 private sex: string,
                 private premium: boolean,
                 private summit: boolean,
                 private createdAt: string,
                 private updatedAt: string,
                 private profileMedium: string,
-                private profile: string) {
+                public profile: string) {
     }
 
 
