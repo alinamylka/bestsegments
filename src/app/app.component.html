@@ -7,6 +7,10 @@
 
 <div *ngIf="hasToken">
     <app-athlete></app-athlete>
-    <app-segment></app-segment>
+
+    <div class = "route-container">
+        <router-outlet></router-outlet>
+    </div>
 </div>
 </body>
+

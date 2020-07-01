@@ -7,16 +7,18 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {SegmentComponent} from './segment/segment.component';
 import {AthleteComponent} from './athlete/athlete.component';
-import { AuthorizeComponent } from './authorize/authorize.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {AuthorizeComponent} from './authorize/authorize.component';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {TokenInterceptor} from './authorize/authorise.interceptor';
+import {SegmentEffortComponent} from './segment.effort/segment.effort.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         SegmentComponent,
         AthleteComponent,
-        AuthorizeComponent
+        AuthorizeComponent,
+        SegmentEffortComponent
     ],
     imports: [
         BrowserModule,

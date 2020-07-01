@@ -4,7 +4,7 @@ import {AuthConfig} from 'angular-oauth2-oidc';
 export let authConfig: AuthConfig;
 authConfig = {
     loginUrl : 'https://www.strava.com/oauth/authorize',
-    redirectUri: window.location.origin,
+    redirectUri: window.location.origin + '/segments',
     tokenEndpoint: 'https://www.strava.com/oauth/token',
     clientId: '49248',
     responseType: 'code',

@@ -1,16 +1,18 @@
-import {SegmentEffortDto} from './segment/segment.effort.dto';
+import {SegmentEffortDto} from './segment.effort/segment.effort.dto';
+import {AthleteService} from './athlete/athlete.service';
+import {Athlete} from './athlete';
 
 export class SegmentEffort {
     constructor(private id: number,
-                private athleteId: number,
-                private elapsedTime: number,
+                public athleteId: number,
+                public elapsedTime: number,
                 private startDate: string,
                 private averageWatts: number) {
 
     }
 
     public static init(dto: SegmentEffortDto): SegmentEffort {
-        return new SegmentEffort(dto.id, dto.athlete.id, dto.elapsed_time, dto.start_date, dto.average_watts);
+        return new SegmentEffort(dto.id, dto.id, dto.elapsed_time, dto.start_date, dto.average_watts);
     }
 
 }

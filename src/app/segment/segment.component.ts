@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {SegmentDto} from './segment.dto';
 import {SegmentService} from './segment.serivce';
-import {AthleteService} from '../athlete/athlete.service';
 import {Segment} from '../segment';
-import {SegmentEffort} from '../segment.effort';
-import {SegmentEffortDto} from './segment.effort.dto';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-segment',
@@ -14,8 +12,7 @@ import {SegmentEffortDto} from './segment.effort.dto';
 export class SegmentComponent implements OnInit {
     segments: Segment[];
     selectedSegment: Segment;
-    segmentEfforts: SegmentEffort[];
-    constructor(private segmentService: SegmentService, private athleteService: AthleteService) {
+    constructor(private segmentService: SegmentService, private router: Router) {
         this.loadSegments();
     }
 
@@ -24,17 +21,14 @@ export class SegmentComponent implements OnInit {
 
     loadSegments() {
         this.segmentService.explore()
-            .subscribe((data: SegmentDto[]) => {
+            .subscribe((data) => {
                 const segments: SegmentDto[] = data['segments'];
                 this.segments = segments.map(dto => Segment.init(dto));
             });
     }
 
-    showBestEffortForSegment() {
-        this.selectedSegment.findBestEfforts(this.segmentService)
-            .subscribe((data: SegmentEffortDto[]) => {
-                const segmentEfforts: SegmentEffortDto[] = data;
-                this.segmentEfforts = segmentEfforts.map(dto => SegmentEffort.init(dto));
-            });
+    showBestEffortForSegment(segment: Segment) {
+        this.selectedSegment = segment;
+        this.selectedSegment.findBestEfforts(this.router);
     }
 }
