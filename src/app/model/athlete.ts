@@ -1,4 +1,4 @@
-import {AthleteDto} from './athlete/athleteDto';
+import {AthleteDto} from '../athlete/athleteDto';
 
 export class Athlete {
     constructor(private id: number,

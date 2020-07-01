@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {SegmentEffort} from '../segment.effort';
+import {SegmentEffort} from '../model/segment.effort';
 import {SegmentEffortService} from './segment.effort.service';
 import {SegmentEffortDto} from './segment.effort.dto';
 import {ActivatedRoute} from '@angular/router';

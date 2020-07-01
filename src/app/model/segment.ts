@@ -1,8 +1,6 @@
-import {SegmentDto} from './segment/segment.dto';
-import {AthleteService} from './athlete/athlete.service';
-import {SegmentService} from './segment/segment.serivce';
+import {SegmentDto} from '../segment/segment.dto';
 import {Observable} from 'rxjs';
-import {SegmentEffortDto} from './segment.effort/segment.effort.dto';
+import {SegmentEffortDto} from '../segment.effort/segment.effort.dto';
 import {Router} from '@angular/router';
 
 export class Segment {
@@ -24,6 +22,6 @@ export class Segment {
 
     // @ts-ignore
     findBestEfforts(router: Router): Observable<SegmentEffortDto[]> {
-        router.navigate(['/segment-efforts'], { queryParams: { segmentId: this.id }});
+        router.navigate(['/segment-efforts'], {queryParams: {segmentId: this.id}});
     }
 }

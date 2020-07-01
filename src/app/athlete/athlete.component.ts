@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AthleteDto} from './athleteDto';
 import {AthleteService} from './athlete.service';
-import {Athlete} from '../athlete';
+import {Athlete} from '../model/athlete';
 
 @Component({
     selector: 'app-athlete',

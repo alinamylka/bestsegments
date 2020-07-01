@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SegmentDto} from './segment.dto';
 import {SegmentService} from './segment.serivce';
-import {Segment} from '../segment';
+import {Segment} from '../model/segment';
 import {Router} from '@angular/router';
 
 @Component({
