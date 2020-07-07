@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {SegmentDto} from './segment.dto';
-import {SegmentEffortDto} from '../segment.effort/segment.effort.dto';
 
 @Injectable({
     providedIn: 'root'

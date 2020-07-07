@@ -1,0 +1,18 @@
+<h1>{{name}}</h1>
+
+<h2>Ranking</h2>
+<mat-list>
+    <mat-list-item *ngFor="let effort of efforts">
+        <img matListAvatar src="{{effort.athlete.profile}}" >
+        <h3 matLine> {{effort.athlete.firstname}} {{effort.athlete.lastname}}</h3>
+        <h2 matLine>{{effort.challengeResult()}}</h2>
+    </mat-list-item>
+</mat-list>
+
+<h2>Segments</h2>
+<mat-list>
+    <mat-list-item *ngFor="let segment of segments">
+        <h3 matLine> {{segment.name}}</h3>
+        <h2 matLine>{{segment.distance}}</h2>
+    </mat-list-item>
+</mat-list>

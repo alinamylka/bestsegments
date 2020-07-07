@@ -15,5 +15,10 @@ export class SegmentEffort {
         return new SegmentEffort(dto.id, dto.id, dto.elapsed_time, dto.start_date, dto.average_watts);
     }
 
+    static combinedElapsedTime(bestSegmentEfforts: Set<SegmentEffort>) {
+        return Array.from(bestSegmentEfforts)
+            .map(effort => effort.elapsedTime)
+            .reduce((a, b) => a + b, 0);
+    }
 }
 

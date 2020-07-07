@@ -11,6 +11,9 @@ import {AuthorizeComponent} from './authorize/authorize.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {TokenInterceptor} from './authorize/authorise.interceptor';
 import {SegmentEffortComponent} from './segment.effort/segment.effort.component';
+import {ChallengeComponent} from './challenge/challenge.component';
+import {ChallengesComponent} from './challenges/challenges.component';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
     declarations: [
@@ -18,9 +21,12 @@ import {SegmentEffortComponent} from './segment.effort/segment.effort.component'
         SegmentComponent,
         AthleteComponent,
         AuthorizeComponent,
-        SegmentEffortComponent
+        SegmentEffortComponent,
+        ChallengeComponent,
+        ChallengesComponent
     ],
     imports: [
+        MatListModule,
         BrowserModule,
         AppRoutingModule,
         OAuthModule.forRoot()
