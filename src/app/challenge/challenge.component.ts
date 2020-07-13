@@ -3,40 +3,57 @@ import {Segment} from '../model/segment';
 import {Challenge} from '../model/challenge';
 import {Athlete} from '../model/athlete';
 import {ChallengeEfforts} from '../model/challengeEfforts';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
-  selector: 'app-challenge',
-  templateUrl: './challenge.component.html',
-  styleUrls: ['./challenge.component.css']
+    selector: 'app-challenge',
+    templateUrl: './challenge.component.html',
+    styleUrls: ['./challenge.component.css']
 })
 export class ChallengeComponent implements OnInit {
-  private challenge: Challenge;
-  constructor() { }
+    private challenge: Challenge;
 
-  ngOnInit(): void {
-  }
+    constructor(private route: ActivatedRoute) {
+    }
 
-  get name(): string {
-    return this.challenge.name;
-  }
+    ngOnInit(): void {
+        this.route.data
+            .subscribe((data: { challenge: Challenge }) => this.challenge = data.challenge);
+    }
 
-  get athletes(): Set<Athlete> {
-    return this.challenge.athletes;
-  }
+    get name(): string {
+        return this.challenge.name;
+    }
 
-  get segments(): Set<Segment> {
-    return this.challenge.segments;
-  }
+    get athletes(): Set<Athlete> {
+        return this.challenge.athletes;
+    }
 
-  get startDate(): Date {
-    return this.challenge.startDate;
-  }
+    get segments(): Set<Segment> {
+        return this.challenge.segments;
+    }
 
-  get endDate(): Date {
-    return this.challenge.endDate;
-  }
+    get startDate(): Date {
+        return this.challenge.startDate;
+    }
 
-  get efforts(): Set<ChallengeEfforts> {
-    return this.challenge.efforts;
-  }
+    get endDate(): Date {
+        return this.challenge.endDate;
+    }
+
+    get efforts(): Set<ChallengeEfforts> {
+        return this.challenge.efforts;
+    }
+
+    formatSeconds(secs): string {
+        const secNum = parseInt(secs, 10);
+        const hours   = Math.floor(secNum / 3600);
+        const minutes = Math.floor(secNum / 60) % 60;
+        const seconds = secNum % 60;
+
+        return [hours, minutes, seconds]
+            .map(v => v < 10 ? '0' + v : v)
+            .filter((v, i) => v !== '00' || i > 0)
+            .join(':');
+    }
 }

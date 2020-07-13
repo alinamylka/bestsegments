@@ -3,7 +3,7 @@ import {SegmentEffort} from './segment.effort';
 
 export class ChallengeEfforts {
     constructor(public athlete: Athlete,
-                private bestSegmentEfforts: Set<SegmentEffort>) {
+                public bestSegmentEfforts: Set<SegmentEffort>) {
     }
 
     challengeResult(): number {

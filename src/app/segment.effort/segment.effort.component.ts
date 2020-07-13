@@ -21,7 +21,7 @@ export class SegmentEffortComponent implements OnInit {
     }
 
     private loadEfforts(segmentId: number) {
-        this.service.findSegmentEfforts(segmentId)
+        this.service.findSegmentEffortsById(segmentId)
             .subscribe((data: SegmentEffortDto[]) => {
                 const segmentEfforts: SegmentEffortDto[] = data;
                 this.segmentEfforts = segmentEfforts.map(dto => SegmentEffort.init(dto));

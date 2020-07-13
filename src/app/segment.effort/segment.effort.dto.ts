@@ -1,3 +1,5 @@
+import {SegmentDto} from '../segment/segment.dto';
+
 export interface SegmentEffortDto {
     id: number;
     athlete: SegmentAthleteDto;
@@ -10,6 +12,7 @@ export interface SegmentEffortDto {
     end_index: number;
     device_watts: false;
     average_watts: number;
+    segment: SegmentDto;
 }
 
 export interface SegmentAthleteDto {

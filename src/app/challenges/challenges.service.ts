@@ -6,7 +6,7 @@ import {Observable, of} from 'rxjs';
 export interface ChallengeDto {
     id: number;
     name: string;
-    segmentId: number[];
+    segmentIds: number[];
     athleteIds: number[];
     startDate: string;
     endDate: string;
@@ -20,22 +20,26 @@ export class ChallengesService {
     constructor(private http: HttpClient) {
     }
 
-    challenges(): Observable<ChallengeDto[]> {
-        return of(ALL_CHALLENGES);
+    challenges(): Observable<Set<ChallengeDto>> {
+        return of(new Set(ALL_CHALLENGES));
+    }
+
+    getChallengeById(id: number): Observable<ChallengeDto> {
+        return of(ALL_CHALLENGES.find(challenge => challenge.id === id));
     }
 }
 
 const ALL_CHALLENGES = [{
     id: 1,
     name: 'Time Trail Bern Challenge',
-    segmentId: [24527677, 15026571],
+    segmentIds: [24527677, 9917244, 4049438],
     athleteIds: [25991512, 510557],
     startDate: '2012-05-15T11:29:19Z',
     endDate: '2021-01-15T11:29:19Z'
 }, {
     id: 2,
     name: 'Mountain Bern Challenge',
-    segmentId: [24527677, 15026571],
+    segmentIds: [758550, 736360, 757433],
     athleteIds: [25991512, 510557],
     startDate: '2012-05-15T11:29:19Z',
     endDate: '2021-01-15T11:29:19Z'

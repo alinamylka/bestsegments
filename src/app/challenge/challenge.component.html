@@ -1,18 +1,26 @@
 <h1>{{name}}</h1>
+<div>This challenge searches for the best efforts from {{startDate | date:'yyyy-MM-dd'}}
+    to {{endDate | date:'yyyy-MM-dd'}} on the following segments
+</div>
+<mat-list>
+    <mat-list-item *ngFor="let segment of segments">
+        <h3 matLine> {{segment.name}}</h3>
+        <h2 matLine> distance: {{segment.distance}}</h2>
+    </mat-list-item>
+</mat-list>
 
 <h2>Ranking</h2>
 <mat-list>
     <mat-list-item *ngFor="let effort of efforts">
-        <img matListAvatar src="{{effort.athlete.profile}}" >
-        <h3 matLine> {{effort.athlete.firstname}} {{effort.athlete.lastname}}</h3>
-        <h2 matLine>{{effort.challengeResult()}}</h2>
+        <img matListAvatar src="{{effort.athlete.profile}}">
+        <h2 matLine> {{effort.athlete.firstname}} {{effort.athlete.lastname}}</h2>
+        <h2 matLine>Total seconds: {{formatSeconds(effort.challengeResult())}}</h2>
+        <h2 matLine> Segments results:
+            <div matLine *ngFor="let segment of effort.bestSegmentEfforts">
+                {{segment.segmentName}}: {{ formatSeconds(segment.elapsedTime)}}
+            </div>
+        </h2>
     </mat-list-item>
 </mat-list>
 
-<h2>Segments</h2>
-<mat-list>
-    <mat-list-item *ngFor="let segment of segments">
-        <h3 matLine> {{segment.name}}</h3>
-        <h2 matLine>{{segment.distance}}</h2>
-    </mat-list-item>
-</mat-list>
+

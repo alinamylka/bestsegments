@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/bestsegments.iml" filepath="$PROJECT_DIR$/.idea/bestsegments.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../bestsegmentsstore/bestsegmentsstore.iml" filepath="$PROJECT_DIR$/../bestsegmentsstore/bestsegmentsstore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../bestsegmentsstore/store.iml" filepath="$PROJECT_DIR$/../bestsegmentsstore/store.iml" />
     </modules>
   </component>
 </project>

@@ -5,6 +5,7 @@ import {Athlete} from './athlete';
 export class SegmentEffort {
     constructor(private id: number,
                 public athleteId: number,
+                public segmentName: string,
                 public elapsedTime: number,
                 private startDate: string,
                 private averageWatts: number) {
@@ -12,7 +13,7 @@ export class SegmentEffort {
     }
 
     public static init(dto: SegmentEffortDto): SegmentEffort {
-        return new SegmentEffort(dto.id, dto.id, dto.elapsed_time, dto.start_date, dto.average_watts);
+        return new SegmentEffort(dto.id, dto.athlete.id, dto.segment.name, dto.elapsed_time, dto.start_date, dto.average_watts);
     }
 
     static combinedElapsedTime(bestSegmentEfforts: Set<SegmentEffort>) {
