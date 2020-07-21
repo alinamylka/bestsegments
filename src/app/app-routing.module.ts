@@ -5,7 +5,7 @@ import {SegmentEffortComponent} from './segment.effort/segment.effort.component'
 import {SegmentComponent} from './segment/segment.component';
 import {ChallengesComponent} from './challenges/challenges.component';
 import {ChallengeComponent} from './challenge/challenge.component';
-import {ChallengeDetailService} from './challenge/challenge.detail.service';
+import {ChallengeDetailResolver} from './challenge/challenge-detail-resolver';
 
 
 const routes: Routes = [
@@ -19,7 +19,7 @@ const routes: Routes = [
                 path: ':id',
                 component: ChallengeComponent,
                 resolve: {
-                    challenge: ChallengeDetailService
+                    challenge: ChallengeDetailResolver
                 }
             }
         ]

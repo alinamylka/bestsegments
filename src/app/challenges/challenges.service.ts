@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 
 
@@ -17,11 +17,14 @@ export interface ChallengeDto {
 })
 export class ChallengesService {
 
+    private ALL_CHALLENGES_URL = 'http://bestsegmentsstore-env.eba-vgsdunr6.eu-central-1.elasticbeanstalk.com/challenges/all';
+
     constructor(private http: HttpClient) {
     }
 
     challenges(): Observable<Set<ChallengeDto>> {
-        return of(new Set(ALL_CHALLENGES));
+        return this.http.get<Set<ChallengeDto>>(
+            this.ALL_CHALLENGES_URL, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
     }
 
     getChallengeById(id: number): Observable<ChallengeDto> {

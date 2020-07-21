@@ -36,6 +36,7 @@ export class SegmentEffortService {
     findSegmentEffortsByIds(segmentIds: number[], startDate: Date, endDate: Date): Observable<SegmentEffortDto[][]> {
         return forkJoin(...segmentIds.map(id => this.findSegmentEfforts(id, startDate, endDate)));
     }
+
     findBestSegmentEffort(segmentId: number, startDate: Date, endDate: Date): Observable<SegmentEffortDto> {
         return this.findSegmentEfforts(segmentId, startDate, endDate)
             .pipe(map(efforts => efforts

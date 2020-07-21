@@ -3,7 +3,7 @@ import {Segment} from '../model/segment';
 import {Challenge} from '../model/challenge';
 import {Athlete} from '../model/athlete';
 import {ChallengeEfforts} from '../model/challengeEfforts';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-challenge',
