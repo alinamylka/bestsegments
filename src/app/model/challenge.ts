@@ -4,7 +4,7 @@ import {ChallengeEfforts} from './challengeEfforts';
 import {SegmentService} from '../segment/segment.serivce';
 import {ChallengeDto, ChallengesService} from '../challenges/challenges.service';
 import {AthleteService} from '../athlete/athlete.service';
-import {EMPTY, forkJoin, Observable, of} from 'rxjs';
+import {forkJoin, Observable, of} from 'rxjs';
 import {map, mergeMap} from 'rxjs/operators';
 import {AthleteDto} from '../athlete/athleteDto';
 import {SegmentDto} from '../segment/segment.dto';
