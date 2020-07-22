@@ -1,6 +1,6 @@
 import {Athlete} from './athlete';
 import {Segment} from './segment';
-import {ChallengeEfforts} from './challengeEfforts';
+import {SegmentEfforts} from './segment.efforts';
 import {SegmentService} from '../segment/segment.serivce';
 import {ChallengeDto, ChallengesService} from '../challenges/challenges.service';
 import {AthleteService} from '../athlete/athlete.service';
@@ -18,11 +18,11 @@ export class Challenge {
                 public segments: Set<Segment>,
                 public startDate: Date,
                 public endDate: Date,
-                public efforts: Set<ChallengeEfforts>) {
+                public efforts: Set<SegmentEfforts>) {
     }
 
     public static init(name: string, startDate: Date, endDate: Date, athletes: Set<Athlete>,
-                       segments: Set<Segment>, efforts: Set<ChallengeEfforts>): Challenge {
+                       segments: Set<Segment>, efforts: Set<SegmentEfforts>): Challenge {
         return new Challenge(name, athletes, segments, startDate, endDate, efforts);
     }
 
@@ -51,7 +51,7 @@ export class Challenge {
             [athletesDto$, segmentsDto$, effortsDto$])
             .pipe(map(([athletesDto, segmentsDto, effortsDto]) => {
                 const athletesById: Map<number, Athlete> = new Map(athletesDto.map(dto => [dto.id, Athlete.init(dto)]));
-                const challengeEfforts = this.computeChallengeEfforts(effortsDto, challengeDto, athletesById);
+                const challengeEfforts = this.createChallengeEfforts(challengeDto.id, effortsDto, athletesById);
                 return Challenge.init(challengeDto.name,
                     startDate,
                     endDate,
@@ -61,14 +61,14 @@ export class Challenge {
             }));
     }
 
-    private static computeChallengeEfforts(allEffortsForSegments: SegmentEffortDto[],
-                                           challengeDto: ChallengeDto, athletesById: Map<number, Athlete>): Set<ChallengeEfforts> {
+    private static createChallengeEfforts(challengeId: number, allEffortsForSegments: SegmentEffortDto[],
+                                          athletesById: Map<number, Athlete>): Set<SegmentEfforts> {
         const effortsByAthleteId: Map<number, SegmentEffort[]> = groupBy(allEffortsForSegments
-            .filter(dto => challengeDto.athleteIds.includes(dto.athlete.id))
-            .map(dto => SegmentEffort.init(dto)), effort => effort.athleteId);
-        const challengeEfforts = new Set<ChallengeEfforts>();
+            .filter(dto => athletesById.has(dto.athlete.id))
+            .map(dto => SegmentEffort.init(dto, challengeId)), effort => effort.athleteId);
+        const challengeEfforts = new Set<SegmentEfforts>();
         effortsByAthleteId.forEach((segmentEfforts, athleteId) => {
-            challengeEfforts.add(new ChallengeEfforts(athletesById.get(athleteId), new Set(segmentEfforts)));
+            challengeEfforts.add(new SegmentEfforts(athletesById.get(athleteId), new Set(segmentEfforts)));
         });
         return challengeEfforts;
     }

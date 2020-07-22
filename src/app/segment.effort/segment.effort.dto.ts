@@ -11,7 +11,10 @@ export interface SegmentEffortDto {
     start_index: number;
     end_index: number;
     device_watts: false;
+    average_cadence: number;
     average_watts: number;
+    average_heartrate: number;
+    max_heartrate: number;
     segment: SegmentDto;
 }
 

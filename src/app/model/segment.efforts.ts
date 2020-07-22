@@ -1,7 +1,7 @@
 import {Athlete} from './athlete';
 import {SegmentEffort} from './segment.effort';
 
-export class ChallengeEfforts {
+export class SegmentEfforts {
     constructor(public athlete: Athlete,
                 public bestSegmentEfforts: Set<SegmentEffort>) {
     }

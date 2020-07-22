@@ -17,7 +17,7 @@
         <h2 matLine>Total seconds: {{formatSeconds(effort.challengeResult())}}</h2>
         <h2 matLine> Segments results:
             <div matLine *ngFor="let segment of effort.bestSegmentEfforts">
-                {{segment.segmentName}}: {{ formatSeconds(segment.elapsedTime)}}
+                {{segment.name}}: {{ formatSeconds(segment.elapsedTime)}}
             </div>
         </h2>
     </mat-list-item>

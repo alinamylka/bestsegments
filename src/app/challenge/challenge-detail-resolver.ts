@@ -14,7 +14,7 @@ import {SegmentDto} from '../segment/segment.dto';
 import {AthleteDto} from '../athlete/athleteDto';
 import {SegmentEffortDto} from '../segment.effort/segment.effort.dto';
 import {SegmentEffort} from '../model/segment.effort';
-import {ChallengeEfforts} from '../model/challengeEfforts';
+import {SegmentEfforts} from '../model/segmentEfforts';
 
 @Injectable({
     providedIn: 'root',

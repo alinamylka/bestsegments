@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Segment} from '../model/segment';
 import {Challenge} from '../model/challenge';
 import {Athlete} from '../model/athlete';
-import {ChallengeEfforts} from '../model/challengeEfforts';
+import {SegmentEfforts} from '../model/segmentEfforts';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -41,7 +41,7 @@ export class ChallengeComponent implements OnInit {
         return this.challenge.endDate;
     }
 
-    get efforts(): Set<ChallengeEfforts> {
+    get efforts(): Set<SegmentEfforts> {
         return this.challenge.efforts;
     }
 
