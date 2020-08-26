@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {AthleteDto} from './athleteDto';
 import {environment} from '../../environments/environment';
 import {map} from 'rxjs/operators';
+import {Athlete} from '../model/athlete';
 
 @Injectable({
     providedIn: 'root'
@@ -21,6 +22,10 @@ export class AthleteService {
         return this.http.get<AthleteDto>(this.athleteURL);
     }
 
+    athleteById(id: number): Observable<AthleteDto> {
+        return this.athletes().pipe(map(athletes => athletes.find(athlete => id === athlete.id)));
+    }
+
     athletesByIds(ids: number[]): Observable<AthleteDto[]> {
         return this.athletes()
             .pipe(map(athletes => athletes.filter(athlete => ids.includes(athlete.id))));
@@ -31,7 +36,7 @@ export class AthleteService {
             this.athleteStoreAllURL, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
     }
 
-    addAthlete(data: AthleteDto) {
-        this.http.post(this.athleteStoreAddURL, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
+    addAthlete(data: Athlete) {
+        return this.http.post(this.athleteStoreAddURL, data);
     }
 }

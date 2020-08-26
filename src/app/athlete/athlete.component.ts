@@ -15,7 +15,7 @@ export class AthleteComponent implements OnInit {
         service.athleteInfo()
             .subscribe((data: AthleteDto) => {
                 this.athlete = Athlete.init(data);
-                service.addAthlete(data);
+                this.athlete.save(service);
             });
     }
 

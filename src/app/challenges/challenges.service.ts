@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
+import {map} from 'rxjs/operators';
 
 
 export interface ChallengeDto {
@@ -23,29 +24,12 @@ export class ChallengesService {
     constructor(private http: HttpClient) {
     }
 
-    challenges(): Observable<Set<ChallengeDto>> {
-        return this.http.get<Set<ChallengeDto>>(
+    challenges(): Observable<ChallengeDto[]> {
+        return this.http.get<ChallengeDto[]>(
             this.ALL_CHALLENGES_URL, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
     }
 
     getChallengeById(id: number): Observable<ChallengeDto> {
-        return of(ALL_CHALLENGES.find(challenge => challenge.id === id));
+        return this.challenges().pipe(map(challenges => challenges.find(challenge => id === challenge.id)));
     }
 }
-
-const ALL_CHALLENGES = [{
-    id: 1,
-    name: 'Time Trail Bern Challenge',
-    segmentIds: [24527677, 9917244, 4049438],
-    athleteIds: [25991512, 510557],
-    startDate: '2012-05-15T11:29:19Z',
-    endDate: '2021-01-15T11:29:19Z'
-}, {
-    id: 2,
-    name: 'Mountain Bern Challenge',
-    segmentIds: [758550, 736360, 757433],
-    athleteIds: [25991512, 510557],
-    startDate: '2012-05-15T11:29:19Z',
-    endDate: '2021-01-15T11:29:19Z'
-}] as ChallengeDto[];
-

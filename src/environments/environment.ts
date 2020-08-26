@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  storeUrl: 'http://bestsegmentsstore-env.eba-vgsdunr6.eu-central-1.elasticbeanstalk.com/'
+  //storeUrl: 'http://bestsegmentsstore-env.eba-vgsdunr6.eu-central-1.elasticbeanstalk.com/'
+  storeUrl: 'http://localhost:5000/'
 };
 
 /*

@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
     styleUrls: ['./challenges.component.css']
 })
 export class ChallengesComponent implements OnInit {
-    challenges$: Observable<Set<ChallengeDto>>;
+    challenges$: Observable<ChallengeDto[]>;
     constructor(private service: ChallengesService) {
     }
 
