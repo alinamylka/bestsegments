@@ -12,7 +12,11 @@ export class AthleteComponent implements OnInit {
     public athlete: Athlete;
 
     constructor(service: AthleteService) {
-        service.athleteInfo().subscribe((data: AthleteDto) => this.athlete = Athlete.init(data));
+        service.athleteInfo()
+            .subscribe((data: AthleteDto) => {
+                this.athlete = Athlete.init(data);
+                service.addAthlete(data);
+            });
     }
 
     get firstName(): string {

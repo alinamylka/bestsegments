@@ -1,20 +1,13 @@
 import {HttpClient} from '@angular/common/http';
-import {EMPTY, forkJoin, Observable, of} from 'rxjs';
-import {ChallengeDto, ChallengesService} from '../challenges/challenges.service';
+import {Observable} from 'rxjs';
+import {ChallengesService} from '../challenges/challenges.service';
 import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from '@angular/router';
 import {Challenge} from '../model/challenge';
-import {isEmpty, map, mergeMap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {SegmentService} from '../segment/segment.serivce';
 import {AthleteService} from '../athlete/athlete.service';
 import {SegmentEffortService} from '../segment.effort/segment.effort.service';
-import {Athlete} from '../model/athlete';
-import {Segment} from '../model/segment';
 import {Injectable} from '@angular/core';
-import {SegmentDto} from '../segment/segment.dto';
-import {AthleteDto} from '../athlete/athleteDto';
-import {SegmentEffortDto} from '../segment.effort/segment.effort.dto';
-import {SegmentEffort} from '../model/segment.effort';
-import {SegmentEfforts} from '../model/segmentEfforts';
 
 @Injectable({
     providedIn: 'root',

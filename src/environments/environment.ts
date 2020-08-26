@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  storeUrl: 'http://bestsegmentsstore-env.eba-vgsdunr6.eu-central-1.elasticbeanstalk.com/'
 };
 
 /*

@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
+import {environment} from '../../environments/environment';
 
 
 export interface ChallengeDto {
@@ -17,7 +18,7 @@ export interface ChallengeDto {
 })
 export class ChallengesService {
 
-    private ALL_CHALLENGES_URL = 'http://bestsegmentsstore-env.eba-vgsdunr6.eu-central-1.elasticbeanstalk.com/challenges/all';
+    private ALL_CHALLENGES_URL = environment.storeUrl + 'challenges/all';
 
     constructor(private http: HttpClient) {
     }

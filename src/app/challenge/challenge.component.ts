@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Segment} from '../model/segment';
 import {Challenge} from '../model/challenge';
 import {Athlete} from '../model/athlete';
-import {SegmentEfforts} from '../model/segmentEfforts';
+import {SegmentEfforts} from '../model/segment.efforts';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -47,7 +47,7 @@ export class ChallengeComponent implements OnInit {
 
     formatSeconds(secs): string {
         const secNum = parseInt(secs, 10);
-        const hours   = Math.floor(secNum / 3600);
+        const hours = Math.floor(secNum / 3600);
         const minutes = Math.floor(secNum / 60) % 60;
         const seconds = secNum % 60;
 

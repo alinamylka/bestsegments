@@ -14,17 +14,17 @@ export class SegmentEffortComponent implements OnInit {
 
     constructor(private service: SegmentEffortService,
                 private route: ActivatedRoute) {
-        route.queryParams.subscribe(params => this.loadEfforts(params['segmentId']));
+       // route.queryParams.subscribe(params => this.loadEfforts(params['segmentId']));
     }
 
     ngOnInit(): void {
     }
 
     private loadEfforts(segmentId: number) {
-        this.service.findSegmentEffortsById(segmentId)
+      /*  this.service.findSegmentEffortsById(segmentId)
             .subscribe((data: SegmentEffortDto[]) => {
                 const segmentEfforts: SegmentEffortDto[] = data;
                 this.segmentEfforts = segmentEfforts.map(dto => SegmentEffort.init(dto));
-            });
+            });*/
     }
 }
