@@ -4,7 +4,7 @@ import {ChallengesStoreService} from '../challenges/challenges.store.service';
 import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from '@angular/router';
 import {Challenge} from '../model/challenge';
 import {map} from 'rxjs/operators';
-import {SegmentService} from '../segment/segment.serivce';
+import {SegmentStravaService} from '../segment/segment.strava.serivce';
 import {AthleteService} from '../athlete/athlete.service';
 import {SegmentEffortService} from '../segment.effort/segment.effort.service';
 import {Injectable} from '@angular/core';
@@ -16,7 +16,7 @@ export class ChallengeDetailResolver implements Resolve<Challenge> {
 
     constructor(private http: HttpClient,
                 private challengesService: ChallengesStoreService,
-                private segmentService: SegmentService,
+                private segmentStravaService: SegmentStravaService,
                 private athleteService: AthleteService,
                 private effortService: SegmentEffortService,
                 private router: Router) {
@@ -26,7 +26,7 @@ export class ChallengeDetailResolver implements Resolve<Challenge> {
         const id = +route.paramMap.get('id');
 
         return Challenge
-            .load(id, this.challengesService, this.segmentService, this.athleteService, this.effortService)
+            .load(id, this.challengesService, this.segmentStravaService, this.athleteService, this.effortService)
             .pipe(
                 map(challenge => {
                     if (!challenge) {

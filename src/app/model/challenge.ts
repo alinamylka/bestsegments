@@ -1,7 +1,7 @@
 import {Athlete} from './athlete';
 import {Segment} from './segment';
 import {SegmentEfforts} from './segment.efforts';
-import {SegmentService} from '../segment/segment.serivce';
+import {SegmentStravaService} from '../segment/segment.strava.serivce';
 import {ChallengeDto, ChallengesStoreService} from '../challenges/challenges.store.service';
 import {AthleteService} from '../athlete/athlete.service';
 import {concat, forkJoin, Observable, of} from 'rxjs';
@@ -28,7 +28,7 @@ export class Challenge {
     }
 
     static load(id: number, challengesService: ChallengesStoreService,
-                segmentService: SegmentService,
+                segmentService: SegmentStravaService,
                 athleteService: AthleteService,
                 segmentEffortService: SegmentEffortService): Observable<Challenge> {
         return challengesService.getChallengeById(id).pipe(
@@ -40,7 +40,7 @@ export class Challenge {
     }
 
     static loadByAthleteId(athleteId: number, challengesService: ChallengesStoreService,
-                           segmentService: SegmentService,
+                           segmentService: SegmentStravaService,
                            athleteService: AthleteService,
                            segmentEffortService: SegmentEffortService): Observable<Challenge[]> {
         return challengesService.getChallengeByAthleteId(athleteId).pipe(
@@ -64,12 +64,12 @@ export class Challenge {
         return segmentEffortDtos.map(segmentEffortDto => SegmentEffort.init(segmentEffortDto, challengeId));
     }
 
-    private static toModel(challengesDto: ChallengeDto[], segmentService: SegmentService, athleteService: AthleteService,
+    private static toModel(challengesDto: ChallengeDto[], segmentService: SegmentStravaService, athleteService: AthleteService,
                            segmentEffortService: SegmentEffortService): Observable<Challenge[]> {
         return forkJoin(challengesDto.map(dto => this.createChallenge(segmentService, athleteService, segmentEffortService, dto)));
     }
 
-    public static createChallenge(segmentService: SegmentService, athleteService: AthleteService,
+    public static createChallenge(segmentService: SegmentStravaService, athleteService: AthleteService,
                                   effortService: SegmentEffortService, challengeDto: ChallengeDto): Observable<Challenge> {
         const startDate = new Date(challengeDto.startDate);
         const endDate = new Date(challengeDto.endDate);

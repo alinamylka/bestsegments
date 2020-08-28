@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SegmentDto} from './segment.dto';
-import {SegmentService} from './segment.serivce';
+import {SegmentStravaService} from './segment.strava.serivce';
 import {Segment} from '../model/segment';
 import {Router} from '@angular/router';
 
@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 export class SegmentComponent implements OnInit {
     segments: Segment[];
     selectedSegment: Segment;
-    constructor(private segmentService: SegmentService, private router: Router) {
+    constructor(private segmentService: SegmentStravaService, private router: Router) {
         this.loadSegments();
     }
 
