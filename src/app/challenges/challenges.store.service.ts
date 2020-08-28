@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {map} from 'rxjs/operators';
-import {Challenge} from '../model/challenge';
 
 
 export interface ChallengeDto {
@@ -18,7 +17,7 @@ export interface ChallengeDto {
 @Injectable({
     providedIn: 'root'
 })
-export class ChallengesService {
+export class ChallengesStoreService {
 
     private ALL_CHALLENGES_URL = environment.storeUrl + 'challenges/all';
     private CHALLENGES_BY_ATHLETE_ID_URL = environment.storeUrl + 'challenges/athlete';

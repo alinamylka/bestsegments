@@ -2,7 +2,7 @@ import {Athlete} from './athlete';
 import {Segment} from './segment';
 import {SegmentEfforts} from './segment.efforts';
 import {SegmentService} from '../segment/segment.serivce';
-import {ChallengeDto, ChallengesService} from '../challenges/challenges.service';
+import {ChallengeDto, ChallengesStoreService} from '../challenges/challenges.store.service';
 import {AthleteService} from '../athlete/athlete.service';
 import {concat, forkJoin, Observable, of} from 'rxjs';
 import {map, mergeMap, subscribeOn} from 'rxjs/operators';
@@ -27,7 +27,7 @@ export class Challenge {
         return new Challenge(id, name, athletes, segments, startDate, endDate, efforts);
     }
 
-    static load(id: number, challengesService: ChallengesService,
+    static load(id: number, challengesService: ChallengesStoreService,
                 segmentService: SegmentService,
                 athleteService: AthleteService,
                 segmentEffortService: SegmentEffortService): Observable<Challenge> {
@@ -39,7 +39,7 @@ export class Challenge {
         );
     }
 
-    static loadByAthleteId(athleteId: number, challengesService: ChallengesService,
+    static loadByAthleteId(athleteId: number, challengesService: ChallengesStoreService,
                            segmentService: SegmentService,
                            athleteService: AthleteService,
                            segmentEffortService: SegmentEffortService): Observable<Challenge[]> {

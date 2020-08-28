@@ -1,7 +1,7 @@
 import {AthleteDto} from '../athlete/athleteDto';
 import {AthleteService} from '../athlete/athlete.service';
 import {Observable} from 'rxjs';
-import {ChallengesService} from '../challenges/challenges.service';
+import {ChallengesStoreService} from '../challenges/challenges.store.service';
 import {Challenge} from './challenge';
 import {SegmentService} from '../segment/segment.serivce';
 import {SegmentEffortService} from '../segment.effort/segment.effort.service';
@@ -54,7 +54,7 @@ export class Athlete {
         };
     }
 
-    challenges(challengeService: ChallengesService, segmentService: SegmentService, athleteService: AthleteService,
+    challenges(challengeService: ChallengesStoreService, segmentService: SegmentService, athleteService: AthleteService,
                effortService: SegmentEffortService): Observable<Challenge[]> {
         return Challenge.loadByAthleteId(this.id, challengeService, segmentService, athleteService, effortService);
     }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AthleteService} from '../athlete/athlete.service';
 import {AthleteDto} from '../athlete/athleteDto';
 import {Athlete} from '../model/athlete';
-import {ChallengesService} from '../challenges/challenges.service';
+import {ChallengesStoreService} from '../challenges/challenges.store.service';
 import {SegmentService} from '../segment/segment.serivce';
 import {SegmentEffortService} from '../segment.effort/segment.effort.service';
 import {Challenge} from '../model/challenge';
@@ -11,7 +11,7 @@ import {Challenge} from '../model/challenge';
     providedIn: 'root'
 })
 export class SyncService {
-    constructor(private athleteService: AthleteService, private challengeService: ChallengesService,
+    constructor(private athleteService: AthleteService, private challengeService: ChallengesStoreService,
                 private segmentService: SegmentService, private effortService: SegmentEffortService) {
     }
 

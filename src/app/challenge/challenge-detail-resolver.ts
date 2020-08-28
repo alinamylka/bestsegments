@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {ChallengesService} from '../challenges/challenges.service';
+import {ChallengesStoreService} from '../challenges/challenges.store.service';
 import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from '@angular/router';
 import {Challenge} from '../model/challenge';
 import {map} from 'rxjs/operators';
@@ -15,7 +15,7 @@ import {Injectable} from '@angular/core';
 export class ChallengeDetailResolver implements Resolve<Challenge> {
 
     constructor(private http: HttpClient,
-                private challengesService: ChallengesService,
+                private challengesService: ChallengesStoreService,
                 private segmentService: SegmentService,
                 private athleteService: AthleteService,
                 private effortService: SegmentEffortService,
