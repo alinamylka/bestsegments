@@ -5,7 +5,7 @@ import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from '@ang
 import {Challenge} from '../model/challenge';
 import {map} from 'rxjs/operators';
 import {SegmentStravaService} from '../segment/segment-strava.serivce';
-import {SegmentEffortService} from '../segment.effort/segment.effort.service';
+import {SegmentEffortStravaService} from '../segment.effort/segment-effort-strava.service';
 import {Injectable} from '@angular/core';
 import {AthleteStoreService} from '../athlete/athlete-store.service';
 
@@ -18,7 +18,7 @@ export class ChallengeDetailResolver implements Resolve<Challenge> {
                 private challengesService: ChallengesStoreService,
                 private segmentStravaService: SegmentStravaService,
                 private athleteStoreService: AthleteStoreService,
-                private effortService: SegmentEffortService,
+                private effortService: SegmentEffortStravaService,
                 private router: Router) {
     }
 

@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {ChallengesStoreService} from '../challenges/challenges-store.service';
 import {Challenge} from './challenge';
 import {SegmentStravaService} from '../segment/segment-strava.serivce';
-import {SegmentEffortService} from '../segment.effort/segment.effort.service';
+import {SegmentEffortStravaService} from '../segment.effort/segment-effort-strava.service';
 import {AthleteStoreService} from '../athlete/athlete-store.service';
 
 export class Athlete {
@@ -56,7 +56,7 @@ export class Athlete {
     }
 
     challenges(challengeService: ChallengesStoreService, segmentService: SegmentStravaService, athleteService: AthleteStoreService,
-               effortService: SegmentEffortService): Observable<Challenge[]> {
+               effortService: SegmentEffortStravaService): Observable<Challenge[]> {
         return Challenge.loadByAthleteId(this.id, challengeService, segmentService, athleteService, effortService);
     }
 }

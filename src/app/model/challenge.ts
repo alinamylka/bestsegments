@@ -9,8 +9,9 @@ import {AthleteDto} from '../athlete/athleteDto';
 import {SegmentDto} from '../segment/segment.dto';
 import {SegmentEffortDto} from '../segment.effort/segment.effort.dto';
 import {SegmentEffort} from './segment.effort';
-import {SegmentEffortService} from '../segment.effort/segment.effort.service';
+import {SegmentEffortStravaService} from '../segment.effort/segment-effort-strava.service';
 import {AthleteStoreService} from '../athlete/athlete-store.service';
+import {SegmentEffortStoreService} from '../segment.effort/segment-effort-store.service';
 
 export class Challenge {
     constructor(public id: number,
@@ -30,7 +31,7 @@ export class Challenge {
     static load(id: number, challengesService: ChallengesStoreService,
                 segmentService: SegmentStravaService,
                 athleteService: AthleteStoreService,
-                segmentEffortService: SegmentEffortService): Observable<Challenge> {
+                segmentEffortService: SegmentEffortStravaService): Observable<Challenge> {
         return challengesService.getChallengeById(id).pipe(
             mergeMap(challengeDto => {
                 return challengeDto ? this.createChallenge(segmentService, athleteService, segmentEffortService, challengeDto) :
@@ -42,19 +43,21 @@ export class Challenge {
     static loadByAthleteId(athleteId: number, challengesService: ChallengesStoreService,
                            segmentService: SegmentStravaService,
                            athleteService: AthleteStoreService,
-                           segmentEffortService: SegmentEffortService): Observable<Challenge[]> {
+                           segmentEffortService: SegmentEffortStravaService): Observable<Challenge[]> {
         return challengesService.getChallengeByAthleteId(athleteId).pipe(
             mergeMap(challengesDto => this.toModel(challengesDto, segmentService, athleteService, segmentEffortService))
         );
     }
 
-    public static addEfforts(effortService: SegmentEffortService, challenges: Challenge[]) {
-        return challenges.map(challenge => Challenge.toEfforts(effortService, challenge))
+    public static addEfforts(effortStravaService: SegmentEffortStravaService,
+                             effortStoreService: SegmentEffortStoreService,
+                             challenges: Challenge[]) {
+        return challenges.map(challenge => Challenge.toEfforts(effortStravaService, challenge))
             .reduce((a, b) => a.concat(b), [])
-            .forEach(effortsObservable => effortsObservable.subscribe(efforts => effortService.add(efforts)));
+            .forEach(effortsObservable => effortsObservable.subscribe(efforts => effortStoreService.add(efforts)));
     }
 
-    private static toEfforts(effortService: SegmentEffortService, challenge: Challenge): Observable<SegmentEffort[]>[] {
+    private static toEfforts(effortService: SegmentEffortStravaService, challenge: Challenge): Observable<SegmentEffort[]>[] {
         return Array.from(challenge.segments)
             .map(segment => segment.toEfforts(effortService)
                 .pipe(map(segmentEffortDtos => this.toSegmentEfforts(segmentEffortDtos, challenge.id))));
@@ -65,12 +68,12 @@ export class Challenge {
     }
 
     private static toModel(challengesDto: ChallengeDto[], segmentService: SegmentStravaService, athleteService: AthleteStoreService,
-                           segmentEffortService: SegmentEffortService): Observable<Challenge[]> {
+                           segmentEffortService: SegmentEffortStravaService): Observable<Challenge[]> {
         return forkJoin(challengesDto.map(dto => this.createChallenge(segmentService, athleteService, segmentEffortService, dto)));
     }
 
     public static createChallenge(segmentService: SegmentStravaService, athleteService: AthleteStoreService,
-                                  effortService: SegmentEffortService, challengeDto: ChallengeDto): Observable<Challenge> {
+                                  effortService: SegmentEffortStravaService, challengeDto: ChallengeDto): Observable<Challenge> {
         const startDate = new Date(challengeDto.startDate);
         const endDate = new Date(challengeDto.endDate);
         const segmentsDto$ = segmentService.segmentByIds(challengeDto.segmentIds);

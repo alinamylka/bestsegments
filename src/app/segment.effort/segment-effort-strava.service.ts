@@ -3,21 +3,18 @@ import {HttpClient} from '@angular/common/http';
 import {forkJoin, Observable} from 'rxjs';
 import {SegmentEffortDto} from './segment.effort.dto';
 import {map} from 'rxjs/operators';
-import {environment} from '../../environments/environment';
-import {SegmentEffort} from '../model/segment.effort';
 
 @Injectable({
     providedIn: 'root'
 })
-export class SegmentEffortService {
+export class SegmentEffortStravaService {
     private static EFFORTS_URL = 'https://www.strava.com/api/v3/segment_efforts';
-    private static EFFORT_STORE_ADD_URL = environment.storeUrl + '/efforts/add';
 
     constructor(private http: HttpClient) {
     }
 
     findSegmentEffortsById(segmentId: number): Observable<SegmentEffortDto[]> {
-        return this.http.get<SegmentEffortDto[]>(SegmentEffortService.EFFORTS_URL, {
+        return this.http.get<SegmentEffortDto[]>(SegmentEffortStravaService.EFFORTS_URL, {
             params: {
                 segment_id: segmentId.toString(),
                 start_date_local: '2018-06-10',
@@ -27,7 +24,7 @@ export class SegmentEffortService {
     }
 
     findSegmentEfforts(segmentId: number, startDate: Date, endDate: Date): Observable<SegmentEffortDto[]> {
-        return this.http.get<SegmentEffortDto[]>(SegmentEffortService.EFFORTS_URL, {
+        return this.http.get<SegmentEffortDto[]>(SegmentEffortStravaService.EFFORTS_URL, {
             params: {
                 segment_id: segmentId.toString(),
                 start_date_local: formatDate(startDate),
@@ -52,10 +49,6 @@ export class SegmentEffortService {
 
     findSegmentBestEffortsByIds(segmentIds: number[], startDate: Date, endDate: Date): Observable<SegmentEffortDto[]> {
         return forkJoin(...segmentIds.map(id => this.findBestSegmentEffort(id, startDate, endDate)));
-    }
-
-    add(segmentEfforts: SegmentEffort[]) {
-        this.http.post(SegmentEffortService.EFFORT_STORE_ADD_URL, segmentEfforts);
     }
 }
 

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SegmentEffort} from '../model/segment.effort';
-import {SegmentEffortService} from './segment.effort.service';
+import {SegmentEffortStravaService} from './segment-effort-strava.service';
 import {SegmentEffortDto} from './segment.effort.dto';
 import {ActivatedRoute} from '@angular/router';
 
@@ -12,7 +12,7 @@ import {ActivatedRoute} from '@angular/router';
 export class SegmentEffortComponent implements OnInit {
     segmentEfforts: SegmentEffort[];
 
-    constructor(private service: SegmentEffortService,
+    constructor(private service: SegmentEffortStravaService,
                 private route: ActivatedRoute) {
        // route.queryParams.subscribe(params => this.loadEfforts(params['segmentId']));
     }

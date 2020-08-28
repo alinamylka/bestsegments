@@ -2,7 +2,7 @@ import {SegmentDto} from '../segment/segment.dto';
 import {Observable} from 'rxjs';
 import {SegmentEffortDto} from '../segment.effort/segment.effort.dto';
 import {Router} from '@angular/router';
-import {SegmentEffortService} from '../segment.effort/segment.effort.service';
+import {SegmentEffortStravaService} from '../segment.effort/segment-effort-strava.service';
 
 export class Segment {
     constructor(private id: number,
@@ -26,7 +26,7 @@ export class Segment {
         router.navigate(['/segment-efforts'], {queryParams: {segmentId: this.id}});
     }
 
-    toEfforts(effortService: SegmentEffortService): Observable<SegmentEffortDto[]> {
+    toEfforts(effortService: SegmentEffortStravaService): Observable<SegmentEffortDto[]> {
         return effortService.findSegmentEffortsById(this.id);
     }
 }
