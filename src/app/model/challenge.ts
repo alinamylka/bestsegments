@@ -4,8 +4,8 @@ import {SegmentEfforts} from './segment.efforts';
 import {SegmentService} from '../segment/segment.serivce';
 import {ChallengeDto, ChallengesService} from '../challenges/challenges.service';
 import {AthleteService} from '../athlete/athlete.service';
-import {forkJoin, Observable, of} from 'rxjs';
-import {map, mergeMap} from 'rxjs/operators';
+import {concat, forkJoin, Observable, of} from 'rxjs';
+import {map, mergeMap, subscribeOn} from 'rxjs/operators';
 import {AthleteDto} from '../athlete/athleteDto';
 import {SegmentDto} from '../segment/segment.dto';
 import {SegmentEffortDto} from '../segment.effort/segment.effort.dto';
@@ -13,7 +13,8 @@ import {SegmentEffort} from './segment.effort';
 import {SegmentEffortService} from '../segment.effort/segment.effort.service';
 
 export class Challenge {
-    constructor(public name: string,
+    constructor(public id: number,
+                public name: string,
                 public athletes: Set<Athlete>,
                 public segments: Set<Segment>,
                 public startDate: Date,
@@ -21,9 +22,9 @@ export class Challenge {
                 public efforts: Set<SegmentEfforts>) {
     }
 
-    public static init(name: string, startDate: Date, endDate: Date, athletes: Set<Athlete>,
+    public static init(id: number, name: string, startDate: Date, endDate: Date, athletes: Set<Athlete>,
                        segments: Set<Segment>, efforts: Set<SegmentEfforts>): Challenge {
-        return new Challenge(name, athletes, segments, startDate, endDate, efforts);
+        return new Challenge(id, name, athletes, segments, startDate, endDate, efforts);
     }
 
     static load(id: number, challengesService: ChallengesService,
@@ -38,9 +39,38 @@ export class Challenge {
         );
     }
 
+    static loadByAthleteId(athleteId: number, challengesService: ChallengesService,
+                           segmentService: SegmentService,
+                           athleteService: AthleteService,
+                           segmentEffortService: SegmentEffortService): Observable<Challenge[]> {
+        return challengesService.getChallengeByAthleteId(athleteId).pipe(
+            mergeMap(challengesDto => this.toModel(challengesDto, segmentService, athleteService, segmentEffortService))
+        );
+    }
 
-    private static createChallenge(segmentService: SegmentService, athleteService: AthleteService,
-                                   effortService: SegmentEffortService, challengeDto: ChallengeDto): Observable<Challenge> {
+    public static addEfforts(effortService: SegmentEffortService, challenges: Challenge[]) {
+        return challenges.map(challenge => Challenge.toEfforts(effortService, challenge))
+            .reduce((a, b) => a.concat(b), [])
+            .forEach(effortsObservable => effortsObservable.subscribe(efforts => effortService.add(efforts)));
+    }
+
+    private static toEfforts(effortService: SegmentEffortService, challenge: Challenge): Observable<SegmentEffort[]>[] {
+        return Array.from(challenge.segments)
+            .map(segment => segment.toEfforts(effortService)
+                .pipe(map(segmentEffortDtos => this.toSegmentEfforts(segmentEffortDtos, challenge.id))));
+    }
+
+    private static toSegmentEfforts(segmentEffortDtos, challengeId: number): SegmentEffort[] {
+        return segmentEffortDtos.map(segmentEffortDto => SegmentEffort.init(segmentEffortDto, challengeId));
+    }
+
+    private static toModel(challengesDto: ChallengeDto[], segmentService: SegmentService, athleteService: AthleteService,
+                           segmentEffortService: SegmentEffortService): Observable<Challenge[]> {
+        return forkJoin(challengesDto.map(dto => this.createChallenge(segmentService, athleteService, segmentEffortService, dto)));
+    }
+
+    public static createChallenge(segmentService: SegmentService, athleteService: AthleteService,
+                                  effortService: SegmentEffortService, challengeDto: ChallengeDto): Observable<Challenge> {
         const startDate = new Date(challengeDto.startDate);
         const endDate = new Date(challengeDto.endDate);
         const segmentsDto$ = segmentService.segmentByIds(challengeDto.segmentIds);
@@ -52,7 +82,8 @@ export class Challenge {
             .pipe(map(([athletesDto, segmentsDto, effortsDto]) => {
                 const athletesById: Map<number, Athlete> = new Map(athletesDto.map(dto => [dto.id, Athlete.init(dto)]));
                 const challengeEfforts = this.createSegmentEfforts(challengeDto.id, effortsDto, athletesById);
-                return Challenge.init(challengeDto.name,
+                return Challenge.init(challengeDto.id,
+                    challengeDto.name,
                     startDate,
                     endDate,
                     new Set(athletesById.values()),

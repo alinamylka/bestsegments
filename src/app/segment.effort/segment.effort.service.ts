@@ -3,12 +3,15 @@ import {HttpClient} from '@angular/common/http';
 import {forkJoin, Observable} from 'rxjs';
 import {SegmentEffortDto} from './segment.effort.dto';
 import {map} from 'rxjs/operators';
+import {environment} from '../../environments/environment';
+import {SegmentEffort} from '../model/segment.effort';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SegmentEffortService {
     private static EFFORTS_URL = 'https://www.strava.com/api/v3/segment_efforts';
+    private static EFFORT_STORE_ADD_URL = environment.storeUrl + '/efforts/add';
 
     constructor(private http: HttpClient) {
     }
@@ -51,6 +54,9 @@ export class SegmentEffortService {
         return forkJoin(...segmentIds.map(id => this.findBestSegmentEffort(id, startDate, endDate)));
     }
 
+    add(segmentEfforts: SegmentEffort[]) {
+        this.http.post(SegmentEffortService.EFFORT_STORE_ADD_URL, segmentEfforts);
+    }
 }
 
 function formatDate(inputDate) {

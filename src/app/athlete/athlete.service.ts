@@ -37,6 +37,6 @@ export class AthleteService {
     }
 
     addAthlete(data: Athlete) {
-        return this.http.post(this.athleteStoreAddURL, data);
+        return this.http.post(this.athleteStoreAddURL, data, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
     }
 }

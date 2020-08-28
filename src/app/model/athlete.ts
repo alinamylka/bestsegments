@@ -1,6 +1,10 @@
 import {AthleteDto} from '../athlete/athleteDto';
 import {AthleteService} from '../athlete/athlete.service';
 import {Observable} from 'rxjs';
+import {ChallengesService} from '../challenges/challenges.service';
+import {Challenge} from './challenge';
+import {SegmentService} from '../segment/segment.serivce';
+import {SegmentEffortService} from '../segment.effort/segment.effort.service';
 
 export class Athlete {
     constructor(private id: number,
@@ -26,8 +30,9 @@ export class Athlete {
             dto.updated_at, dto.profile_medium, dto.profile);
     }
 
-    save(service: AthleteService) {
-        return service.addAthlete(this).subscribe();
+    save(service: AthleteService): Athlete {
+        service.addAthlete(this).subscribe();
+        return this;
     }
 
     public toDto(): AthleteDto {
@@ -47,5 +52,10 @@ export class Athlete {
             updated_at: this.updatedAt,
             username: this.username
         };
+    }
+
+    challenges(challengeService: ChallengesService, segmentService: SegmentService, athleteService: AthleteService,
+               effortService: SegmentEffortService): Observable<Challenge[]> {
+        return Challenge.loadByAthleteId(this.id, challengeService, segmentService, athleteService, effortService);
     }
 }

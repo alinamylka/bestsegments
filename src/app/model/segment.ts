@@ -2,6 +2,7 @@ import {SegmentDto} from '../segment/segment.dto';
 import {Observable} from 'rxjs';
 import {SegmentEffortDto} from '../segment.effort/segment.effort.dto';
 import {Router} from '@angular/router';
+import {SegmentEffortService} from '../segment.effort/segment.effort.service';
 
 export class Segment {
     constructor(private id: number,
@@ -23,5 +24,9 @@ export class Segment {
     // @ts-ignore
     findBestEfforts(router: Router): Observable<SegmentEffortDto[]> {
         router.navigate(['/segment-efforts'], {queryParams: {segmentId: this.id}});
+    }
+
+    toEfforts(effortService: SegmentEffortService): Observable<SegmentEffortDto[]> {
+        return effortService.findSegmentEffortsById(this.id);
     }
 }
