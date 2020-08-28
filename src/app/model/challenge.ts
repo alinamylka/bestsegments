@@ -73,12 +73,12 @@ export class Challenge {
         return forkJoin(challengesDto.map(dto => this.createChallenge(segmentService, athleteService, segmentEffortService, dto)));
     }
 
-    public static createChallenge(segmentService: SegmentStoreService, athleteService: AthleteStoreService,
+    public static createChallenge(segmentStoreService: SegmentStoreService, athleteStoreService: AthleteStoreService,
                                   effortService: SegmentEffortStravaService, challengeDto: ChallengeDto): Observable<Challenge> {
         const startDate = new Date(challengeDto.startDate);
         const endDate = new Date(challengeDto.endDate);
-        const segmentsDto$ = segmentService.segmentByIds(challengeDto.segmentIds);
-        const athletesDto$ = athleteService.athletesByIds(challengeDto.athleteIds);
+        const segmentsDto$ = segmentStoreService.segmentByIds(challengeDto.segmentIds);
+        const athletesDto$ = athleteStoreService.athletesByIds(challengeDto.athleteIds);
         const effortsDto$ = effortService.findSegmentBestEffortsByIds(challengeDto.segmentIds, startDate, endDate);
 
         return forkJoin<AthleteDto[], SegmentDto[], SegmentEffortDto[]>(
@@ -107,6 +107,7 @@ export class Challenge {
         });
         return challengeEfforts;
     }
+
 }
 
 

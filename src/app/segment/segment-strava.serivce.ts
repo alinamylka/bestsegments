@@ -19,7 +19,7 @@ export class SegmentStravaService {
         return this.http.get<SegmentDto>(SegmentStravaService.BY_ID_URL + id);
     }
 
-    segmentByIds(ids): Observable<SegmentDto> {
+    segmentByIds(ids): Observable<SegmentDto[]> {
         const segments: Observable<SegmentDto>[] = ids.map(id => this.segmentById(id));
         return forkJoin(...segments);
     }
