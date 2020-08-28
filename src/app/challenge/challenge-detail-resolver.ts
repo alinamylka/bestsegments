@@ -8,6 +8,7 @@ import {SegmentStravaService} from '../segment/segment-strava.serivce';
 import {SegmentEffortStravaService} from '../segment.effort/segment-effort-strava.service';
 import {Injectable} from '@angular/core';
 import {AthleteStoreService} from '../athlete/athlete-store.service';
+import {SegmentStoreService} from '../segment/segment-store.serivce';
 
 @Injectable({
     providedIn: 'root',
@@ -16,7 +17,7 @@ export class ChallengeDetailResolver implements Resolve<Challenge> {
 
     constructor(private http: HttpClient,
                 private challengesService: ChallengesStoreService,
-                private segmentStravaService: SegmentStravaService,
+                private segmentStoreService: SegmentStoreService,
                 private athleteStoreService: AthleteStoreService,
                 private effortService: SegmentEffortStravaService,
                 private router: Router) {
@@ -26,7 +27,7 @@ export class ChallengeDetailResolver implements Resolve<Challenge> {
         const id = +route.paramMap.get('id');
 
         return Challenge
-            .load(id, this.challengesService, this.segmentStravaService, this.athleteStoreService, this.effortService)
+            .load(id, this.challengesService, this.segmentStoreService, this.athleteStoreService, this.effortService)
             .pipe(
                 map(challenge => {
                     if (!challenge) {

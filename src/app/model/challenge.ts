@@ -12,6 +12,7 @@ import {SegmentEffort} from './segment.effort';
 import {SegmentEffortStravaService} from '../segment.effort/segment-effort-strava.service';
 import {AthleteStoreService} from '../athlete/athlete-store.service';
 import {SegmentEffortStoreService} from '../segment.effort/segment-effort-store.service';
+import {SegmentStoreService} from '../segment/segment-store.serivce';
 
 export class Challenge {
     constructor(public id: number,
@@ -29,7 +30,7 @@ export class Challenge {
     }
 
     static load(id: number, challengesService: ChallengesStoreService,
-                segmentService: SegmentStravaService,
+                segmentService: SegmentStoreService,
                 athleteService: AthleteStoreService,
                 segmentEffortService: SegmentEffortStravaService): Observable<Challenge> {
         return challengesService.getChallengeById(id).pipe(
@@ -67,12 +68,12 @@ export class Challenge {
         return segmentEffortDtos.map(segmentEffortDto => SegmentEffort.init(segmentEffortDto, challengeId));
     }
 
-    private static toModel(challengesDto: ChallengeDto[], segmentService: SegmentStravaService, athleteService: AthleteStoreService,
+    private static toModel(challengesDto: ChallengeDto[], segmentService: SegmentStoreService, athleteService: AthleteStoreService,
                            segmentEffortService: SegmentEffortStravaService): Observable<Challenge[]> {
         return forkJoin(challengesDto.map(dto => this.createChallenge(segmentService, athleteService, segmentEffortService, dto)));
     }
 
-    public static createChallenge(segmentService: SegmentStravaService, athleteService: AthleteStoreService,
+    public static createChallenge(segmentService: SegmentStoreService, athleteService: AthleteStoreService,
                                   effortService: SegmentEffortStravaService, challengeDto: ChallengeDto): Observable<Challenge> {
         const startDate = new Date(challengeDto.startDate);
         const endDate = new Date(challengeDto.endDate);
