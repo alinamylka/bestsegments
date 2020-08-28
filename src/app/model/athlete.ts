@@ -1,11 +1,10 @@
 import {AthleteDto} from '../athlete/athleteDto';
-import {AthleteStravaService} from '../athlete/athlete-strava.service';
 import {Observable} from 'rxjs';
 import {ChallengesStoreService} from '../challenges/challenges-store.service';
 import {Challenge} from './challenge';
-import {SegmentStravaService} from '../segment/segment-strava.serivce';
 import {SegmentEffortStravaService} from '../segment.effort/segment-effort-strava.service';
 import {AthleteStoreService} from '../athlete/athlete-store.service';
+import {SegmentStoreService} from '../segment/segment-store.serivce';
 
 export class Athlete {
     constructor(private id: number,
@@ -55,7 +54,7 @@ export class Athlete {
         };
     }
 
-    challenges(challengeService: ChallengesStoreService, segmentService: SegmentStravaService, athleteService: AthleteStoreService,
+    challenges(challengeService: ChallengesStoreService, segmentService: SegmentStoreService, athleteService: AthleteStoreService,
                effortService: SegmentEffortStravaService): Observable<Challenge[]> {
         return Challenge.loadByAthleteId(this.id, challengeService, segmentService, athleteService, effortService);
     }

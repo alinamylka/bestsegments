@@ -15,6 +15,6 @@ export class ChallengesComponent implements OnInit {
 
     ngOnInit(): void {
         this.challenges$ = this.service.challenges();
-       // this.syncService.syncEfforts();
+        this.syncService.syncEfforts();
     }
 }

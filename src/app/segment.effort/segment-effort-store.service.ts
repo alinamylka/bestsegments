@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {SegmentEffort} from '../model/segment.effort';
 
@@ -7,12 +7,14 @@ import {SegmentEffort} from '../model/segment.effort';
     providedIn: 'root'
 })
 export class SegmentEffortStoreService {
-    private static EFFORT_STORE_ADD_URL = environment.storeUrl + '/efforts/add';
+    private static EFFORT_STORE_ADD_URL = environment.storeUrl + 'efforts/add';
 
     constructor(private http: HttpClient) {
     }
 
     add(segmentEfforts: SegmentEffort[]) {
-        this.http.post(SegmentEffortStoreService.EFFORT_STORE_ADD_URL, segmentEfforts);
+        this.http
+            .post(SegmentEffortStoreService.EFFORT_STORE_ADD_URL, segmentEfforts, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})})
+            .subscribe();
     }
 }

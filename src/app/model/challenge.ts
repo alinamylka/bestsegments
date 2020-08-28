@@ -42,7 +42,7 @@ export class Challenge {
     }
 
     static loadByAthleteId(athleteId: number, challengesService: ChallengesStoreService,
-                           segmentService: SegmentStravaService,
+                           segmentService: SegmentStoreService,
                            athleteService: AthleteStoreService,
                            segmentEffortService: SegmentEffortStravaService): Observable<Challenge[]> {
         return challengesService.getChallengeByAthleteId(athleteId).pipe(
