@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ChallengeDto, ChallengesStoreService} from './challenges.store.service';
+import {ChallengeDto, ChallengesStoreService} from './challenges-store.service';
 import {Observable} from 'rxjs';
 import {SyncService} from '../sync/sync.service';
 

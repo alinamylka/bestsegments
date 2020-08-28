@@ -1,10 +1,11 @@
 import {AthleteDto} from '../athlete/athleteDto';
-import {AthleteService} from '../athlete/athlete.service';
+import {AthleteStravaService} from '../athlete/athlete-strava.service';
 import {Observable} from 'rxjs';
-import {ChallengesStoreService} from '../challenges/challenges.store.service';
+import {ChallengesStoreService} from '../challenges/challenges-store.service';
 import {Challenge} from './challenge';
-import {SegmentStravaService} from '../segment/segment.strava.serivce';
+import {SegmentStravaService} from '../segment/segment-strava.serivce';
 import {SegmentEffortService} from '../segment.effort/segment.effort.service';
+import {AthleteStoreService} from '../athlete/athlete-store.service';
 
 export class Athlete {
     constructor(private id: number,
@@ -30,7 +31,7 @@ export class Athlete {
             dto.updated_at, dto.profile_medium, dto.profile);
     }
 
-    save(service: AthleteService): Athlete {
+    save(service: AthleteStoreService): Athlete {
         service.addAthlete(this).subscribe();
         return this;
     }
@@ -54,7 +55,7 @@ export class Athlete {
         };
     }
 
-    challenges(challengeService: ChallengesStoreService, segmentService: SegmentStravaService, athleteService: AthleteService,
+    challenges(challengeService: ChallengesStoreService, segmentService: SegmentStravaService, athleteService: AthleteStoreService,
                effortService: SegmentEffortService): Observable<Challenge[]> {
         return Challenge.loadByAthleteId(this.id, challengeService, segmentService, athleteService, effortService);
     }

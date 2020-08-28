@@ -9,17 +9,12 @@ import {Athlete} from '../model/athlete';
 @Injectable({
     providedIn: 'root'
 })
-export class AthleteService {
+export class AthleteStoreService {
 
-    private athleteURL = 'https://www.strava.com/api/v3/athlete';
     private athleteStoreAllURL = environment.storeUrl + 'athletes/all';
     private athleteStoreAddURL = environment.storeUrl + 'athletes/add';
 
     constructor(private http: HttpClient) {
-    }
-
-    athleteInfo(): Observable<AthleteDto> {
-        return this.http.get<AthleteDto>(this.athleteURL);
     }
 
     athleteById(id: number): Observable<AthleteDto> {

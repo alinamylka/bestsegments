@@ -1,5 +1,5 @@
 import {SegmentEffortDto} from '../segment.effort/segment.effort.dto';
-import {AthleteService} from '../athlete/athlete.service';
+import {AthleteStravaService} from '../athlete/athlete-strava.service';
 import {Athlete} from './athlete';
 
 export class SegmentEffort {

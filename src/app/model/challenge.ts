@@ -1,16 +1,16 @@
 import {Athlete} from './athlete';
 import {Segment} from './segment';
 import {SegmentEfforts} from './segment.efforts';
-import {SegmentStravaService} from '../segment/segment.strava.serivce';
-import {ChallengeDto, ChallengesStoreService} from '../challenges/challenges.store.service';
-import {AthleteService} from '../athlete/athlete.service';
-import {concat, forkJoin, Observable, of} from 'rxjs';
-import {map, mergeMap, subscribeOn} from 'rxjs/operators';
+import {SegmentStravaService} from '../segment/segment-strava.serivce';
+import {ChallengeDto, ChallengesStoreService} from '../challenges/challenges-store.service';
+import {forkJoin, Observable, of} from 'rxjs';
+import {map, mergeMap} from 'rxjs/operators';
 import {AthleteDto} from '../athlete/athleteDto';
 import {SegmentDto} from '../segment/segment.dto';
 import {SegmentEffortDto} from '../segment.effort/segment.effort.dto';
 import {SegmentEffort} from './segment.effort';
 import {SegmentEffortService} from '../segment.effort/segment.effort.service';
+import {AthleteStoreService} from '../athlete/athlete-store.service';
 
 export class Challenge {
     constructor(public id: number,
@@ -29,7 +29,7 @@ export class Challenge {
 
     static load(id: number, challengesService: ChallengesStoreService,
                 segmentService: SegmentStravaService,
-                athleteService: AthleteService,
+                athleteService: AthleteStoreService,
                 segmentEffortService: SegmentEffortService): Observable<Challenge> {
         return challengesService.getChallengeById(id).pipe(
             mergeMap(challengeDto => {
@@ -41,7 +41,7 @@ export class Challenge {
 
     static loadByAthleteId(athleteId: number, challengesService: ChallengesStoreService,
                            segmentService: SegmentStravaService,
-                           athleteService: AthleteService,
+                           athleteService: AthleteStoreService,
                            segmentEffortService: SegmentEffortService): Observable<Challenge[]> {
         return challengesService.getChallengeByAthleteId(athleteId).pipe(
             mergeMap(challengesDto => this.toModel(challengesDto, segmentService, athleteService, segmentEffortService))
@@ -64,12 +64,12 @@ export class Challenge {
         return segmentEffortDtos.map(segmentEffortDto => SegmentEffort.init(segmentEffortDto, challengeId));
     }
 
-    private static toModel(challengesDto: ChallengeDto[], segmentService: SegmentStravaService, athleteService: AthleteService,
+    private static toModel(challengesDto: ChallengeDto[], segmentService: SegmentStravaService, athleteService: AthleteStoreService,
                            segmentEffortService: SegmentEffortService): Observable<Challenge[]> {
         return forkJoin(challengesDto.map(dto => this.createChallenge(segmentService, athleteService, segmentEffortService, dto)));
     }
 
-    public static createChallenge(segmentService: SegmentStravaService, athleteService: AthleteService,
+    public static createChallenge(segmentService: SegmentStravaService, athleteService: AthleteStoreService,
                                   effortService: SegmentEffortService, challengeDto: ChallengeDto): Observable<Challenge> {
         const startDate = new Date(challengeDto.startDate);
         const endDate = new Date(challengeDto.endDate);
