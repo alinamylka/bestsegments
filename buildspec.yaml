@@ -13,7 +13,6 @@ phases:
   pre_build:
     commands:
       - echo installing dependencies...
-      - npm install --save-dev webpack
       - npm i -g @angular/cli
       - npm install @roboburned/dedup-resolve-webpack-plugin -D
       - npm install
