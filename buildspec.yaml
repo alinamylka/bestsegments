@@ -14,7 +14,7 @@ phases:
     commands:
       - echo installing dependencies...
       - npm i -g @angular/cli
-      - npm install @roboburned/dedup-resolve-webpack-plugin -D
+      - npm install dedupe
       - npm install
   build:
     commands:
