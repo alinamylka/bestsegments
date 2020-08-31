@@ -4,14 +4,15 @@ import {AthleteDto} from '../athlete/athleteDto';
 import {Athlete} from '../model/athlete';
 import {ChallengeDto, ChallengesStoreService} from '../challenges/challenges-store.service';
 import {SegmentEffortStravaService} from '../segment.effort/segment-effort-strava.service';
-import {Challenge} from '../model/challenge';
 import {AthleteStoreService} from '../athlete/athlete-store.service';
 import {SegmentEffortStoreService} from '../segment.effort/segment-effort-store.service';
 import {SegmentStoreService} from '../segment/segment-store.serivce';
 import {SegmentStravaService} from '../segment/segment-strava.serivce';
-import {mergeMap} from 'rxjs/operators';
+import {map, mergeMap} from 'rxjs/operators';
 import {Segment} from '../model/segment';
 import {SegmentDto} from '../segment/segment.dto';
+import {Observable} from 'rxjs';
+import {SegmentEffort} from '../model/segment.effort';
 
 @Injectable({
     providedIn: 'root'
@@ -30,7 +31,7 @@ export class SyncService {
         this.athleteStravaService.athleteInfo()
             .subscribe((data: AthleteDto) => {
                 Athlete.init(data).save(this.athleteStoreService)
-                    .challenges(this.challengeService, this.segmentStoreService, this.athleteStoreService, this.effortStravaService)
+                    .challenges(this.challengeService)
                     .subscribe(challenges => this.syncEfforts(challenges));
             });
         this.challengeService.challenges()
@@ -46,7 +47,19 @@ export class SyncService {
         return challenges.map(challenge => challenge.segmentIds).reduce((a, b) => a.concat(b));
     }
 
-    private syncEfforts(challenges: Challenge[]) {
-        Challenge.addEfforts(this.effortStravaService, this.effortStoreService, challenges);
+    private syncEfforts(challenges: ChallengeDto[]) {
+        return challenges.map(challenge => this.toEfforts(challenge.id, challenge.segmentIds))
+            .reduce((a, b) => a.concat(b), [])
+            .forEach(effortsObservable => effortsObservable.subscribe(efforts => this.effortStoreService.add(efforts)));
+    }
+
+    private toEfforts(challengeId: number, segmentIds: number[]): Observable<SegmentEffort[]>[] {
+        return segmentIds
+            .map(segmentId => this.effortStravaService.findSegmentEffortsById(segmentId)
+                .pipe(map(segmentEffortDtos => this.toSegmentEfforts(segmentEffortDtos, challengeId))));
+    }
+
+    private toSegmentEfforts(segmentEffortDtos, challengeId: number): SegmentEffort[] {
+        return segmentEffortDtos.map(segmentEffortDto => SegmentEffort.init(segmentEffortDto, challengeId));
     }
 }

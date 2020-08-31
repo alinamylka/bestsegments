@@ -34,7 +34,7 @@ export class ChallengesStoreService {
         return this.challenges().pipe(map(challenges => challenges.find(challenge => id === challenge.id)));
     }
 
-    getChallengeByAthleteId(id: number): Observable<ChallengeDto[]> {
+    byAthleteId(id: number): Observable<ChallengeDto[]> {
         return this.http.get<ChallengeDto[]>(
             this.CHALLENGES_BY_ATHLETE_ID_URL + '/' + id, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
     }

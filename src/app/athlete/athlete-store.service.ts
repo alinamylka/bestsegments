@@ -10,28 +10,18 @@ import {Athlete} from '../model/athlete';
     providedIn: 'root'
 })
 export class AthleteStoreService {
-
-    private athleteStoreAllURL = environment.storeUrl + 'athletes/all';
-    private athleteStoreAddURL = environment.storeUrl + 'athletes/add';
+    private static ADD = environment.storeUrl + 'athletes/add';
+    private static BY_IDS = environment.storeUrl + 'athletes/byIds';
 
     constructor(private http: HttpClient) {
     }
 
-    athleteById(id: number): Observable<AthleteDto> {
-        return this.athletes().pipe(map(athletes => athletes.find(athlete => id === athlete.id)));
-    }
-
-    athletesByIds(ids: number[]): Observable<AthleteDto[]> {
-        return this.athletes()
-            .pipe(map(athletes => athletes.filter(athlete => ids.includes(athlete.id))));
-    }
-
-    athletes(): Observable<AthleteDto[]> {
-        return this.http.get<AthleteDto[]>(
-            this.athleteStoreAllURL, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
+    athletesByIds(ids: number[]): Observable<Athlete[]> {
+        return this.http.get<Athlete[]>(
+            AthleteStoreService.BY_IDS + '/' + ids, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
     }
 
     addAthlete(data: Athlete) {
-        return this.http.post(this.athleteStoreAddURL, data, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
+        return this.http.post(AthleteStoreService.ADD, data, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
     }
 }

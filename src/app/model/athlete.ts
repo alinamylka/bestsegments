@@ -1,10 +1,7 @@
 import {AthleteDto} from '../athlete/athleteDto';
 import {Observable} from 'rxjs';
-import {ChallengesStoreService} from '../challenges/challenges-store.service';
-import {Challenge} from './challenge';
-import {SegmentEffortStravaService} from '../segment.effort/segment-effort-strava.service';
+import {ChallengeDto, ChallengesStoreService} from '../challenges/challenges-store.service';
 import {AthleteStoreService} from '../athlete/athlete-store.service';
-import {SegmentStoreService} from '../segment/segment-store.serivce';
 
 export class Athlete {
     constructor(private id: number,
@@ -30,32 +27,17 @@ export class Athlete {
             dto.updated_at, dto.profile_medium, dto.profile);
     }
 
+    public static byId(athletes: Athlete[]): Map<number, Athlete> {
+        return new Map(athletes.map(athlete => [athlete.id, athlete]));
+    }
+
     save(service: AthleteStoreService): Athlete {
         service.addAthlete(this).subscribe();
         return this;
     }
 
-    public toDto(): AthleteDto {
-        return {
-            city: this.city,
-            country: this.country,
-            created_at: this.createdAt,
-            firstname: this.firstname,
-            id: this.id,
-            lastname: this.lastname,
-            premium: this.premium,
-            profile: this.profile,
-            profile_medium: this.profileMedium,
-            sex: this.sex,
-            state: this.state,
-            summit: this.summit,
-            updated_at: this.updatedAt,
-            username: this.username
-        };
-    }
-
-    challenges(challengeService: ChallengesStoreService, segmentService: SegmentStoreService, athleteService: AthleteStoreService,
-               effortService: SegmentEffortStravaService): Observable<Challenge[]> {
-        return Challenge.loadByAthleteId(this.id, challengeService, segmentService, athleteService, effortService);
+    challenges(challengeStoreService: ChallengesStoreService): Observable<ChallengeDto[]> {
+        return challengeStoreService.byAthleteId(this.id);
     }
 }
+

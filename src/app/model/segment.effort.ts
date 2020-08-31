@@ -1,6 +1,5 @@
 import {SegmentEffortDto} from '../segment.effort/segment.effort.dto';
-import {AthleteStravaService} from '../athlete/athlete-strava.service';
-import {Athlete} from './athlete';
+import {groupBy} from '../utils';
 
 export class SegmentEffort {
     constructor(private id: number,
@@ -43,6 +42,10 @@ export class SegmentEffort {
         return Array.from(bestSegmentEfforts)
             .map(effort => effort.elapsedTime)
             .reduce((a, b) => a + b, 0);
+    }
+
+    static byAthleteId(efforts: SegmentEffort[]): Map<number, SegmentEffort[]> {
+        return efforts ? groupBy(efforts, effort => effort.athleteId) : new Map();
     }
 }
 

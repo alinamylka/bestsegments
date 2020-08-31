@@ -42,7 +42,7 @@ export class ChallengeComponent implements OnInit {
     }
 
     get efforts(): Set<SegmentEfforts> {
-        return this.challenge.efforts;
+        return this.challenge.bestEfforts;
     }
 
     formatSeconds(secs): string {
