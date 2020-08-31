@@ -10,12 +10,12 @@ phases:
       - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
       - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
       - apt install --no-install-recommends yarn
-      - yarn add @angular-devkit/build-angular --dev
-      - ng version
+      - npm install --save-dev @angular-devkit/build-angular
   pre_build:
     commands:
       - echo installing dependencies...
-      - npm i -g @angular/cli dedupe
+      - npm i -g @angular/cli
+      - ng version
       - npm install
   build:
     commands:
