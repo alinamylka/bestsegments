@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AthleteDto} from './athleteDto';
 import {AthleteStravaService} from './athlete-strava.service';
-import {Athlete} from '../model/athlete';
+import {Athlete} from './athlete';
 import {AthleteStoreService} from './athlete-store.service';
 
 @Component({

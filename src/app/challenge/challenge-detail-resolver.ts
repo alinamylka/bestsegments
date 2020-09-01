@@ -2,7 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ChallengesStoreService} from '../challenges/challenges-store.service';
 import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from '@angular/router';
-import {Challenge} from '../model/challenge';
+import {Challenge} from './challenge';
 import {map} from 'rxjs/operators';
 import {SegmentStravaService} from '../segment/segment-strava.serivce';
 import {SegmentEffortStravaService} from '../segment.effort/segment-effort-strava.service';

@@ -1,4 +1,4 @@
-import {Athlete} from './athlete';
+import {Athlete} from '../athlete/athlete';
 import {SegmentEffort} from './segment.effort';
 
 export class SegmentEfforts {

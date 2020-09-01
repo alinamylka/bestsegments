@@ -1,7 +1,7 @@
-import {AthleteDto} from '../athlete/athleteDto';
+import {AthleteDto} from './athleteDto';
 import {Observable} from 'rxjs';
 import {ChallengeDto, ChallengesStoreService} from '../challenges/challenges-store.service';
-import {AthleteStoreService} from '../athlete/athlete-store.service';
+import {AthleteStoreService} from './athlete-store.service';
 
 export class Athlete {
     constructor(private id: number,

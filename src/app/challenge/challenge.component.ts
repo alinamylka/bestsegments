@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Segment} from '../model/segment';
-import {Challenge} from '../model/challenge';
-import {Athlete} from '../model/athlete';
-import {SegmentEfforts} from '../model/segment.efforts';
+import {Segment} from '../segment/segment';
+import {Challenge} from './challenge';
+import {Athlete} from '../athlete/athlete';
+import {SegmentEfforts} from '../segment.effort/segment.efforts';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -43,17 +43,5 @@ export class ChallengeComponent implements OnInit {
 
     get efforts(): Set<SegmentEfforts> {
         return this.challenge.bestEfforts;
-    }
-
-    formatSeconds(secs): string {
-        const secNum = parseInt(secs, 10);
-        const hours = Math.floor(secNum / 3600);
-        const minutes = Math.floor(secNum / 60) % 60;
-        const seconds = secNum % 60;
-
-        return [hours, minutes, seconds]
-            .map(v => v < 10 ? '0' + v : v)
-            .filter((v, i) => v !== '00' || i > 0)
-            .join(':');
     }
 }

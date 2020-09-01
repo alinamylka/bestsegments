@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {SegmentEffort} from '../model/segment.effort';
+import {SegmentEffort} from './segment.effort';
 import {Observable} from 'rxjs';
-import {SegmentEfforts} from '../model/segment.efforts';
+import {SegmentEfforts} from './segment.efforts';
 import {formatDate} from '../utils';
 
 @Injectable({

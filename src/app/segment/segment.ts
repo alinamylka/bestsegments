@@ -1,4 +1,4 @@
-import {SegmentDto} from '../segment/segment.dto';
+import {SegmentDto} from './segment.dto';
 import {Observable} from 'rxjs';
 import {SegmentEffortDto} from '../segment.effort/segment.effort.dto';
 import {Router} from '@angular/router';

@@ -14,6 +14,7 @@ import {SegmentEffortComponent} from './segment.effort/segment.effort.component'
 import {ChallengeComponent} from './challenge/challenge.component';
 import {ChallengesComponent} from './challenges/challenges.component';
 import {MatListModule} from '@angular/material/list';
+import { RankingComponent } from './ranking/ranking.component';
 
 @NgModule({
     declarations: [
@@ -23,7 +24,8 @@ import {MatListModule} from '@angular/material/list';
         AuthorizeComponent,
         SegmentEffortComponent,
         ChallengeComponent,
-        ChallengesComponent
+        ChallengesComponent,
+        RankingComponent
     ],
     imports: [
         MatListModule,

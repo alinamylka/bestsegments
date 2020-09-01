@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {AthleteDto} from './athleteDto';
 import {environment} from '../../environments/environment';
 import {map} from 'rxjs/operators';
-import {Athlete} from '../model/athlete';
+import {Athlete} from './athlete';
 
 @Injectable({
     providedIn: 'root'

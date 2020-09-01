@@ -1,4 +1,4 @@
-import {SegmentEffortDto} from '../segment.effort/segment.effort.dto';
+import {SegmentEffortDto} from './segment.effort.dto';
 import {groupBy} from '../utils';
 
 export class SegmentEffort {

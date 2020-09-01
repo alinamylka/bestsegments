@@ -1,10 +1,10 @@
-import {Athlete} from './athlete';
-import {Segment} from './segment';
-import {SegmentEfforts} from './segment.efforts';
+import {Athlete} from '../athlete/athlete';
+import {Segment} from '../segment/segment';
+import {SegmentEfforts} from '../segment.effort/segment.efforts';
 import {ChallengeDto, ChallengesStoreService} from '../challenges/challenges-store.service';
 import {forkJoin, Observable, of} from 'rxjs';
 import {map, mergeMap} from 'rxjs/operators';
-import {SegmentEffort} from './segment.effort';
+import {SegmentEffort} from '../segment.effort/segment.effort';
 import {AthleteStoreService} from '../athlete/athlete-store.service';
 import {SegmentEffortStoreService} from '../segment.effort/segment-effort-store.service';
 import {SegmentStoreService} from '../segment/segment-store.serivce';
@@ -36,13 +36,13 @@ export class Challenge {
         );
     }
 
-    public static createChallenge(segmentStoreService: SegmentStoreService, athleteStoreService: AthleteStoreService,
-                                  effortService: SegmentEffortStoreService, challengeDto: ChallengeDto): Observable<Challenge> {
+    private static createChallenge(segmentStoreService: SegmentStoreService, athleteStoreService: AthleteStoreService,
+                                   effortStoreService: SegmentEffortStoreService, challengeDto: ChallengeDto): Observable<Challenge> {
         const startDate = new Date(challengeDto.startDate);
         const endDate = new Date(challengeDto.endDate);
         const segments$ = segmentStoreService.segmentByIds(challengeDto.segmentIds);
         const athletes$ = athleteStoreService.athletesByIds(challengeDto.athleteIds);
-        const efforts$ = effortService.findBestSegmentEfforts(challengeDto.segmentIds, startDate, endDate);
+        const efforts$ = effortStoreService.findBestSegmentEfforts(challengeDto.segmentIds, startDate, endDate);
         return forkJoin<Athlete[], Segment[], SegmentEffort[]>(
             [athletes$, segments$, efforts$])
             .pipe(map(([athletes, segments, efforts]) => {
