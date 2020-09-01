@@ -8,7 +8,7 @@ import {AuthorizeService} from './authorize/authorize.service';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    title = 'BEST SEGMENTS APP';
+    title = 'BEST SEGMENTS';
 
     constructor(private authorisationService: AuthorizeService) {
     }
