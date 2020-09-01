@@ -12,7 +12,6 @@ export class AuthorizeComponent implements OnInit {
     }
 
     title = 'Best Segments';
-    message = '';
 
     loginClick() {
         console.log('Made It');

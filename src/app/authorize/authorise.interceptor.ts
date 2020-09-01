@@ -18,9 +18,6 @@ export class TokenInterceptor implements HttpInterceptor {
     }
 
     private token() {
-        if (!this.oauthService.hasValidAccessToken()) {
-            this.oauthService.refreshToken();
-        }
         return this.oauthService.getAccessToken();
     }
 }
