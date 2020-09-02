@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ChallengeDto, ChallengesStoreService} from './challenges-store.service';
+import {ChallengeStoreDto, ChallengesStoreService} from './challenges-store.service';
 import {Observable} from 'rxjs';
 import {SyncService} from '../sync/sync.service';
 
@@ -9,7 +9,7 @@ import {SyncService} from '../sync/sync.service';
     styleUrls: ['./challenges.component.css']
 })
 export class ChallengesComponent implements OnInit {
-    challenges$: Observable<ChallengeDto[]>;
+    challenges$: Observable<ChallengeStoreDto[]>;
     constructor(private service: ChallengesStoreService, private syncService: SyncService) {
     }
 

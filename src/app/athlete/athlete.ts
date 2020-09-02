@@ -1,6 +1,6 @@
 import {AthleteStravaDto} from './athlete.strava.dto';
 import {Observable} from 'rxjs';
-import {ChallengeDto, ChallengesStoreService} from '../challenges/challenges-store.service';
+import {ChallengeStoreDto, ChallengesStoreService} from '../challenges/challenges-store.service';
 import {AthleteStoreService} from './athlete-store.service';
 import {AthleteStoreDto} from './athlete.store.dto';
 
@@ -47,7 +47,7 @@ export class Athlete {
         return this;
     }
 
-    challenges(challengeStoreService: ChallengesStoreService): Observable<ChallengeDto[]> {
+    challenges(challengeStoreService: ChallengesStoreService): Observable<ChallengeStoreDto[]> {
         return challengeStoreService.byAthleteId(this.id);
     }
 }

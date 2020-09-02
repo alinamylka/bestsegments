@@ -5,7 +5,7 @@ import {environment} from '../../environments/environment';
 import {map} from 'rxjs/operators';
 
 
-export interface ChallengeDto {
+export interface ChallengeStoreDto {
     id: number;
     name: string;
     segmentIds: number[];
@@ -25,17 +25,17 @@ export class ChallengesStoreService {
     constructor(private http: HttpClient) {
     }
 
-    challenges(): Observable<ChallengeDto[]> {
-        return this.http.get<ChallengeDto[]>(
+    challenges(): Observable<ChallengeStoreDto[]> {
+        return this.http.get<ChallengeStoreDto[]>(
             this.ALL_CHALLENGES_URL, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
     }
 
-    getChallengeById(id: number): Observable<ChallengeDto> {
+    getChallengeById(id: number): Observable<ChallengeStoreDto> {
         return this.challenges().pipe(map(challenges => challenges.find(challenge => id === challenge.id)));
     }
 
-    byAthleteId(id: number): Observable<ChallengeDto[]> {
-        return this.http.get<ChallengeDto[]>(
+    byAthleteId(id: number): Observable<ChallengeStoreDto[]> {
+        return this.http.get<ChallengeStoreDto[]>(
             this.CHALLENGES_BY_ATHLETE_ID_URL + '/' + id, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
     }
 }

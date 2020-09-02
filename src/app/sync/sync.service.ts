@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AthleteStravaService} from '../athlete/athlete-strava.service';
 import {AthleteStravaDto} from '../athlete/athlete.strava.dto';
 import {Athlete} from '../athlete/athlete';
-import {ChallengeDto, ChallengesStoreService} from '../challenges/challenges-store.service';
+import {ChallengeStoreDto, ChallengesStoreService} from '../challenges/challenges-store.service';
 import {SegmentEffortStravaService} from '../segment.effort/segment-effort-strava.service';
 import {AthleteStoreService} from '../athlete/athlete-store.service';
 import {SegmentEffortStoreService} from '../segment.effort/segment-effort-store.service';
@@ -43,11 +43,11 @@ export class SyncService {
         return segmentDtos.map(segmentDto => Segment.initFromStrava(segmentDto));
     }
 
-    private toSegmentIds(challenges: ChallengeDto[]): number[] {
+    private toSegmentIds(challenges: ChallengeStoreDto[]): number[] {
         return challenges.map(challenge => challenge.segmentIds).reduce((a, b) => a.concat(b));
     }
 
-    private syncEfforts(challenges: ChallengeDto[]) {
+    private syncEfforts(challenges: ChallengeStoreDto[]) {
         return challenges.map(challenge => this.toEfforts(challenge.id, challenge.segmentIds))
             .reduce((a, b) => a.concat(b), [])
             .forEach(effortsObservable => effortsObservable.subscribe(efforts => this.effortStoreService.add(efforts)));
