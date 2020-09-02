@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Segment} from '../segment/segment';
 import {Challenge} from './challenge';
 import {Athlete} from '../athlete/athlete';
-import {BestEffortsProAthlete} from '../ranking/best.efforts.pro.athlete';
 import {ActivatedRoute} from '@angular/router';
 import {SegmentEffort} from '../segment.effort/segment.effort';
 import {AthleteResult} from '../ranking/athlete.result';
@@ -27,11 +26,11 @@ export class ChallengeComponent implements OnInit {
         return this.challenge.name;
     }
 
-    get athletes(): Set<Athlete> {
+    get athletes(): Athlete[] {
         return this.challenge.athletes;
     }
 
-    get segments(): Set<Segment> {
+    get segments(): Segment[] {
         return this.challenge.segments;
     }
 
@@ -43,13 +42,11 @@ export class ChallengeComponent implements OnInit {
         return this.challenge.endDate;
     }
 
-    get efforts(): Set<SegmentEffort> {
+    get efforts(): SegmentEffort[] {
         return this.challenge.efforts;
     }
 
     get athleteResults(): AthleteResult[] {
-        return BestEffortsProAthlete.init(this.athletes, this.efforts)
-            .map(bestEfforts => bestEfforts.toAthleteResult(Array.from(this.segments)))
-            .sort(AthleteResult.COMPARATOR);
+        return this.challenge.toAthleteResult();
     }
 }

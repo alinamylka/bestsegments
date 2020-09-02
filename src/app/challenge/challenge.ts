@@ -10,19 +10,20 @@ import {SegmentStoreService} from '../segment/segment-store.serivce';
 import {SegmentStoreDto} from '../segment/segment.store.dto';
 import {SegmentEffortStoreDto} from '../segment.effort/segment-effort-store.dto';
 import {AthleteStoreDto} from '../athlete/athlete.store.dto';
+import {AthleteResult} from '../ranking/athlete.result';
 
 export class Challenge {
     constructor(public id: number,
                 public name: string,
-                public athletes: Set<Athlete>,
-                public segments: Set<Segment>,
+                public athletes: Athlete[],
+                public segments: Segment[],
                 public startDate: Date,
                 public endDate: Date,
-                public efforts: Set<SegmentEffort>) {
+                public efforts: SegmentEffort[]) {
     }
 
-    public static init(id: number, name: string, startDate: Date, endDate: Date, athletes: Set<Athlete>,
-                       segments: Set<Segment>, efforts: Set<SegmentEffort>): Challenge {
+    public static init(id: number, name: string, startDate: Date, endDate: Date, athletes: Athlete[],
+                       segments: Segment[], efforts: SegmentEffort[]): Challenge {
         return new Challenge(id, name, athletes, segments, startDate, endDate, efforts);
     }
 
@@ -52,9 +53,13 @@ export class Challenge {
                     challengeDto.name,
                     startDate,
                     endDate,
-                    new Set(Athlete.from(athleteStoreDtos)),
-                    new Set(Segment.from(segmentStoreDtos)),
-                    new Set(SegmentEffort.from(effortDtos)));
+                    Athlete.from(athleteStoreDtos),
+                    Segment.from(segmentStoreDtos),
+                    SegmentEffort.from(effortDtos));
             }));
+    }
+
+     toAthleteResult(): AthleteResult[]{
+        return AthleteResult.from(this.athletes, this.efforts, this.segments);
     }
 }

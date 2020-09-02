@@ -1,5 +1,6 @@
 import {Athlete} from '../athlete/athlete';
 import {SegmentEffort} from '../segment.effort/segment.effort';
+import {Segment} from '../segment/segment';
 
 export class AthleteResult {
     static COMPARATOR: (a: AthleteResult, b: AthleteResult) => number =
@@ -17,5 +18,22 @@ export class AthleteResult {
                 public efforts: SegmentEffort[]) {
     }
 
+    public static from(athletes: Athlete[], efforts: SegmentEffort[], segments: Segment[]): AthleteResult[] {
+        const effortsByAthleteId: Map<number, SegmentEffort[]> = SegmentEffort.byAthleteId(efforts);
+        const athletesById: Map<number, Athlete> = Athlete.byId(athletes);
+        const athleteResults = [];
+        effortsByAthleteId.forEach((segmentEfforts, athleteId) => {
+            athleteResults.push(
+                AthleteResult.init(athletesById.get(athleteId), segmentEfforts, segments));
+        });
+        return athleteResults.sort(AthleteResult.COMPARATOR);
+    }
 
+    public static init(athlete: Athlete, segmentEfforts: SegmentEffort[], segments: Segment[]): AthleteResult {
+        const completedSegments = segments
+            .filter(segment => segment.hasEffortIn(segmentEfforts))
+            .length;
+        const totalTime = SegmentEffort.combinedElapsedTime(new Set(segmentEfforts));
+        return new AthleteResult(athlete, completedSegments, totalTime, segmentEfforts);
+    }
 }

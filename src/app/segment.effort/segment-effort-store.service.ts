@@ -3,8 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {SegmentEffort} from './segment.effort';
 import {Observable} from 'rxjs';
-import {BestEffortsProAthlete} from '../ranking/best.efforts.pro.athlete';
-import {formatDate} from '../utils';
+import {SegmentEffortStoreDto} from './segment-effort-store.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -16,12 +15,12 @@ export class SegmentEffortStoreService {
     constructor(private http: HttpClient) {
     }
 
-    findBestSegmentEfforts(segmentIds: number[], startDate: Date, endDate: Date): Observable<BestEffortsProAthlete> {
+    findBestSegmentEfforts(segmentIds: number[], startDate: Date, endDate: Date): Observable<SegmentEffortStoreDto> {
         const url = SegmentEffortStoreService.BEST_PRO_ATHLETE_BY_SEGMENT_ID
             + '/' + segmentIds
             + '/' + startDate.toISOString()
             + '/' + endDate.toISOString();
-        return this.http.get<BestEffortsProAthlete>(url);
+        return this.http.get<SegmentEffortStoreDto>(url);
     }
 
     add(segmentEfforts: SegmentEffort[]) {
