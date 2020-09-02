@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SegmentEffort} from './segment.effort';
 import {SegmentEffortStravaService} from './segment-effort-strava.service';
-import {SegmentEffortDto} from './segment.effort.dto';
+import {SegmentEffortStravaDto} from './segment-effort-strava.dto';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({

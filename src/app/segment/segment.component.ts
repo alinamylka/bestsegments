@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {SegmentDto} from './segment.dto';
+import {SegmentStravaDto} from './segment.strava.dto';
 import {SegmentStravaService} from './segment-strava.serivce';
 import {Segment} from './segment';
 import {Router} from '@angular/router';
@@ -22,8 +22,8 @@ export class SegmentComponent implements OnInit {
     loadSegments() {
         this.segmentService.explore()
             .subscribe((data) => {
-                const segments: SegmentDto[] = data['segments'];
-                this.segments = segments.map(dto => Segment.init(dto));
+                const segments: SegmentStravaDto[] = data['segments'];
+                this.segments = segments.map(dto => Segment.initFromStrava(dto));
             });
     }
 

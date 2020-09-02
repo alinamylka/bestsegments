@@ -10,7 +10,7 @@ import {SegmentStoreService} from '../segment/segment-store.serivce';
 import {SegmentStravaService} from '../segment/segment-strava.serivce';
 import {map, mergeMap} from 'rxjs/operators';
 import {Segment} from '../segment/segment';
-import {SegmentDto} from '../segment/segment.dto';
+import {SegmentStravaDto} from '../segment/segment.strava.dto';
 import {Observable} from 'rxjs';
 import {SegmentEffort} from '../segment.effort/segment.effort';
 
@@ -39,8 +39,8 @@ export class SyncService {
             .subscribe(segmentDtos => this.segmentStoreService.add(this.toSegments(segmentDtos)));
     }
 
-    private toSegments(segmentDtos: SegmentDto[]) {
-        return segmentDtos.map(segmentDto => Segment.init(segmentDto));
+    private toSegments(segmentDtos: SegmentStravaDto[]) {
+        return segmentDtos.map(segmentDto => Segment.initFromStrava(segmentDto));
     }
 
     private toSegmentIds(challenges: ChallengeDto[]): number[] {
@@ -60,6 +60,6 @@ export class SyncService {
     }
 
     private toSegmentEfforts(segmentEffortDtos, challengeId: number): SegmentEffort[] {
-        return segmentEffortDtos.map(segmentEffortDto => SegmentEffort.init(segmentEffortDto, challengeId));
+        return segmentEffortDtos.map(segmentEffortDto => SegmentEffort.initFromStrava(segmentEffortDto, challengeId));
     }
 }

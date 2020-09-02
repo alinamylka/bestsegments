@@ -2,8 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Segment} from '../segment/segment';
 import {Challenge} from './challenge';
 import {Athlete} from '../athlete/athlete';
-import {SegmentEfforts} from '../segment.effort/segment.efforts';
+import {BestEffortsProAthlete} from '../ranking/best.efforts.pro.athlete';
 import {ActivatedRoute} from '@angular/router';
+import {SegmentEffort} from '../segment.effort/segment.effort';
+import {AthleteResult} from '../ranking/athlete.result';
 
 @Component({
     selector: 'app-challenge',
@@ -41,7 +43,13 @@ export class ChallengeComponent implements OnInit {
         return this.challenge.endDate;
     }
 
-    get efforts(): Set<SegmentEfforts> {
-        return this.challenge.bestEfforts;
+    get efforts(): Set<SegmentEffort> {
+        return this.challenge.efforts;
+    }
+
+    get athleteResults(): AthleteResult[] {
+        return BestEffortsProAthlete.init(this.athletes, this.efforts)
+            .map(bestEfforts => bestEfforts.toAthleteResult(Array.from(this.segments)))
+            .sort(AthleteResult.COMPARATOR);
     }
 }

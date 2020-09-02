@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {forkJoin, Observable} from 'rxjs';
-import {SegmentDto} from './segment.dto';
+import {SegmentStravaDto} from './segment.strava.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -15,17 +15,17 @@ export class SegmentStravaService {
     constructor(private http: HttpClient) {
     }
 
-    segmentById(id): Observable<SegmentDto> {
-        return this.http.get<SegmentDto>(SegmentStravaService.BY_ID_URL + id);
+    segmentById(id): Observable<SegmentStravaDto> {
+        return this.http.get<SegmentStravaDto>(SegmentStravaService.BY_ID_URL + id);
     }
 
-    segmentByIds(ids): Observable<SegmentDto[]> {
-        const segments: Observable<SegmentDto>[] = ids.map(id => this.segmentById(id));
+    segmentByIds(ids): Observable<SegmentStravaDto[]> {
+        const segments: Observable<SegmentStravaDto>[] = ids.map(id => this.segmentById(id));
         return forkJoin(...segments);
     }
 
-    explore(): Observable<SegmentDto[]> {
-        return this.http.get<SegmentDto[]>(SegmentStravaService.EXPLORE_URL, {
+    explore(): Observable<SegmentStravaDto[]> {
+        return this.http.get<SegmentStravaDto[]>(SegmentStravaService.EXPLORE_URL, {
             params: {
                 activity_type: 'riding',
                 bounds: '46.851432,7.365352,47.076130,7.720005',

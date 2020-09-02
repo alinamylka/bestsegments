@@ -1,4 +1,4 @@
-export interface SegmentDto {
+export interface SegmentStravaDto {
     id: number;
     name: string;
     climb_category: number;

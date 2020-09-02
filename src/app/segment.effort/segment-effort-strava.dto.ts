@@ -1,8 +1,8 @@
-import {SegmentDto} from '../segment/segment.dto';
+import {SegmentStravaDto} from '../segment/segment.strava.dto';
 
-export interface SegmentEffortDto {
+export interface SegmentEffortStravaDto {
     id: number;
-    athlete: SegmentAthleteDto;
+    athlete: SegmentAthleteStravaDto;
     elapsed_time: number;
     moving_time: number;
     start_date: string;
@@ -15,10 +15,10 @@ export interface SegmentEffortDto {
     average_watts: number;
     average_heartrate: number;
     max_heartrate: number;
-    segment: SegmentDto;
+    segment: SegmentStravaDto;
 }
 
-export interface SegmentAthleteDto {
+export interface SegmentAthleteStravaDto {
     id: number;
     resource_state: number;
 }

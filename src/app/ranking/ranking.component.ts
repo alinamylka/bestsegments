@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SegmentEfforts} from '../segment.effort/segment.efforts';
-import {Athlete} from '../athlete/athlete';
+import {AthleteResult} from './athlete.result';
 
 @Component({
     selector: 'app-ranking',
@@ -8,9 +7,7 @@ import {Athlete} from '../athlete/athlete';
     styleUrls: ['./ranking.component.css']
 })
 export class RankingComponent implements OnInit {
-
-    @Input() efforts: Set<SegmentEfforts>;
-    @Input() athletes: Set<Athlete>;
+    @Input() athleteResults: AthleteResult[];
 
     constructor() {
     }

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {SegmentEffortDto} from './segment.effort.dto';
+import {SegmentEffortStravaDto} from './segment-effort-strava.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -12,8 +12,8 @@ export class SegmentEffortStravaService {
     constructor(private http: HttpClient) {
     }
 
-    findSegmentEffortsById(segmentId: number): Observable<SegmentEffortDto[]> {
-        return this.http.get<SegmentEffortDto[]>(SegmentEffortStravaService.EFFORTS_URL, {
+    findSegmentEffortsById(segmentId: number): Observable<SegmentEffortStravaDto[]> {
+        return this.http.get<SegmentEffortStravaDto[]>(SegmentEffortStravaService.EFFORTS_URL, {
             params: {
                 segment_id: segmentId.toString(),
                 start_date_local: '2018-06-10',
@@ -22,8 +22,8 @@ export class SegmentEffortStravaService {
         });
     }
 
-    findSegmentEfforts(segmentId: number, startDate: Date, endDate: Date): Observable<SegmentEffortDto[]> {
-        return this.http.get<SegmentEffortDto[]>(SegmentEffortStravaService.EFFORTS_URL, {
+    findSegmentEfforts(segmentId: number, startDate: Date, endDate: Date): Observable<SegmentEffortStravaDto[]> {
+        return this.http.get<SegmentEffortStravaDto[]>(SegmentEffortStravaService.EFFORTS_URL, {
             params: {
                 segment_id: segmentId.toString(),
                 start_date_local: formatDate(startDate),
