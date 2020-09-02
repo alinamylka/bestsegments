@@ -5,7 +5,7 @@ import {Segment} from '../segment/segment';
 export class AthleteResult {
     static COMPARATOR: (a: AthleteResult, b: AthleteResult) => number =
         (athleteResult1: AthleteResult, athleteResult2: AthleteResult) => {
-            const completedSegmentsDiff = athleteResult1.completedSegments - athleteResult2.completedSegments;
+            const completedSegmentsDiff = athleteResult2.completedSegments - athleteResult1.completedSegments;
             if (completedSegmentsDiff !== 0) {
                 return completedSegmentsDiff;
             }
