@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {AthleteDto} from './athleteDto';
+import {AthleteStravaDto} from './athlete.strava.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +12,7 @@ export class AthleteStravaService {
     constructor(private http: HttpClient) {
     }
 
-    athleteInfo(): Observable<AthleteDto> {
-        return this.http.get<AthleteDto>(this.athleteURL);
+    athleteInfo(): Observable<AthleteStravaDto> {
+        return this.http.get<AthleteStravaDto>(this.athleteURL);
     }
 }

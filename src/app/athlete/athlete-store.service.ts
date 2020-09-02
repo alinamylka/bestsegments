@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {AthleteDto} from './athleteDto';
+import {AthleteStravaDto} from './athlete.strava.dto';
 import {environment} from '../../environments/environment';
 import {map} from 'rxjs/operators';
 import {Athlete} from './athlete';
+import {AthleteStoreDto} from './athlete.store.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -16,8 +17,8 @@ export class AthleteStoreService {
     constructor(private http: HttpClient) {
     }
 
-    athletesByIds(ids: number[]): Observable<Athlete[]> {
-        return this.http.get<Athlete[]>(
+    athletesByIds(ids: number[]): Observable<AthleteStoreDto[]> {
+        return this.http.get<AthleteStoreDto[]>(
             AthleteStoreService.BY_IDS + '/' + ids, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
     }
 

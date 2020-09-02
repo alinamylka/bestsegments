@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AthleteDto} from './athleteDto';
+import {AthleteStravaDto} from './athlete.strava.dto';
 import {AthleteStravaService} from './athlete-strava.service';
 import {Athlete} from './athlete';
 import {AthleteStoreService} from './athlete-store.service';
@@ -15,8 +15,8 @@ export class AthleteComponent implements OnInit {
     constructor(stravaService: AthleteStravaService,
                 storeService: AthleteStoreService) {
         stravaService.athleteInfo()
-            .subscribe((data: AthleteDto) => {
-                this.athlete = Athlete.init(data);
+            .subscribe((data: AthleteStravaDto) => {
+                this.athlete = Athlete.initFromStrava(data);
                 this.athlete.save(storeService);
             });
     }

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AthleteStravaService} from '../athlete/athlete-strava.service';
-import {AthleteDto} from '../athlete/athleteDto';
+import {AthleteStravaDto} from '../athlete/athlete.strava.dto';
 import {Athlete} from '../athlete/athlete';
 import {ChallengeDto, ChallengesStoreService} from '../challenges/challenges-store.service';
 import {SegmentEffortStravaService} from '../segment.effort/segment-effort-strava.service';
@@ -29,8 +29,8 @@ export class SyncService {
 
     public start() {
         this.athleteStravaService.athleteInfo()
-            .subscribe((data: AthleteDto) => {
-                Athlete.init(data).save(this.athleteStoreService)
+            .subscribe((data: AthleteStravaDto) => {
+                Athlete.initFromStrava(data).save(this.athleteStoreService)
                     .challenges(this.challengeService)
                     .subscribe(challenges => this.syncEfforts(challenges));
             });

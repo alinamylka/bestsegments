@@ -1,4 +1,4 @@
-export interface AthleteDto {
+export interface AthleteStravaDto {
     id: number;
     username: string;
     firstname: string;
