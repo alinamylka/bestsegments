@@ -1,1 +1,65 @@
-<p>add-challenge works!</p>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title"> Add Challenge</h4>
+        <div class="alert alert-info alert-dismissible " role="alert" *ngIf="formSubmitted">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <strong>Bingo !!! Form Submitted...</strong>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <form [formGroup]="myForm" novalidate>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" formControlName="name"
+                               [ngClass]="{'is-invalid': name.errors && (name.touched || name.dirty), 'is-valid':name.valid}">
+                        <div class="invalid-feedback">
+                            <strong *ngIf="name.errors?.required">Name is required</strong>
+                            <strong *ngIf="name.errors?.minlength">Name must be greated
+                                than {{name.errors?.minlength.requiredLength}}
+                                character. {{name.errors?.minlength.requiredLength - name.errors?.minlength.actualLength}}
+                                more character required. </strong>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label>Start Date</label>
+                        <input type="datetime-local" class="form-control" formControlName="startDate"
+                               [ngClass]="{'is-invalid': startDate.errors && (startDate.touched || startDate.dirty)}">
+                        <div class="invalid-feedback">
+                            <strong>Invalid date format </strong>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>End Date</label>
+                        <input type="datetime-local" class="form-control" formControlName="endDate"
+                               [ngClass]="{'is-invalid': endDate.errors && (endDate.touched || endDate.dirty), 'is-valid':endDate.valid}">
+                        <div class="invalid-feedback">
+                            <strong>Invalid date format </strong>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label>Segments</label>
+                        <input type="text" class="form-control" formControlName="segments"
+                                [ngClass]="{'is-invalid': segments.errors && (segments.touched || segments.dirty), 'is-valid':segments.valid}">
+                        <div class="invalid-feedback">
+                            <strong>At least one segment should be defined</strong>
+                        </div>
+                    </div>
+                    <button type="submit" [disabled]="myForm.invalid" (click)="addChallenge(myForm.value)"
+                            class="btn btn-primary">Submit
+                    </button>
+                    <button class="btn btn-default" (click)="myForm.reset()">Reset</button>
+                </form>
+            </div>
+
+            <div class="col-md-6">
+                <label>
+                    <strong>myForm : JSON</strong>
+                </label>
+                <pre class="alert alert-dark">{{myForm.value | json}}</pre>
+            </div>
+        </div>
+    </div>
+</div>

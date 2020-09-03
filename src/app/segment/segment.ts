@@ -31,6 +31,10 @@ export class Segment {
         return segmentStoreDtos.map(dto => this.initFromStore(dto));
     }
 
+    static ids(segments: Segment[]) {
+        return segments.map(segment => segment.id);
+    }
+
     public hasEffortIn(efforts: SegmentEffort[]): boolean {
         if (efforts.find(effort => effort.belongsTo(this.id))) {
             return true;
@@ -42,4 +46,5 @@ export class Segment {
     public findBestEfforts(router: Router): Observable<SegmentEffortStravaDto[]> {
         router.navigate(['/segment-efforts'], {queryParams: {segmentId: this.id}});
     }
+
 }

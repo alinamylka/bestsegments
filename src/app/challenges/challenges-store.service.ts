@@ -19,15 +19,16 @@ export interface ChallengeStoreDto {
 })
 export class ChallengesStoreService {
 
-    private ALL_CHALLENGES_URL = environment.storeUrl + 'challenges/all';
-    private CHALLENGES_BY_ATHLETE_ID_URL = environment.storeUrl + 'challenges/athlete';
+    private ALL = environment.storeUrl + 'challenges/all';
+    private BY_ATHLETE_ID_URL = environment.storeUrl + 'challenges/athlete';
+    private ADD = environment.storeUrl + 'challenges/add';
 
     constructor(private http: HttpClient) {
     }
 
     challenges(): Observable<ChallengeStoreDto[]> {
         return this.http.get<ChallengeStoreDto[]>(
-            this.ALL_CHALLENGES_URL, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
+            this.ALL, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
     }
 
     getChallengeById(id: number): Observable<ChallengeStoreDto> {
@@ -36,6 +37,10 @@ export class ChallengesStoreService {
 
     byAthleteId(id: number): Observable<ChallengeStoreDto[]> {
         return this.http.get<ChallengeStoreDto[]>(
-            this.CHALLENGES_BY_ATHLETE_ID_URL + '/' + id, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
+            this.BY_ATHLETE_ID_URL + '/' + id, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
+    }
+
+    add(challenge: ChallengeStoreDto): Observable<any> {
+        return this.http.post(this.ADD, challenge);
     }
 }

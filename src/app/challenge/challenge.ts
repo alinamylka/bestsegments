@@ -11,6 +11,7 @@ import {SegmentStoreDto} from '../segment/segment.store.dto';
 import {SegmentEffortStoreDto} from '../segment.effort/segment-effort-store.dto';
 import {AthleteStoreDto} from '../athlete/athlete.store.dto';
 import {AthleteResult} from '../ranking/athlete.result';
+import {formatDate} from '../utils';
 
 export class Challenge {
     constructor(public id: number,
@@ -61,5 +62,20 @@ export class Challenge {
 
      toAthleteResult(): AthleteResult[]{
         return AthleteResult.from(this.athletes, this.efforts, this.segments);
+    }
+
+    add(challengeService: ChallengesStoreService): Observable<any> {
+        return challengeService.add(this.toDtoStore());
+    }
+
+    private toDtoStore(): ChallengeStoreDto {
+        return  {
+            id: this.id,
+            name: this.name,
+            startDate: formatDate(this.startDate),
+            endDate: formatDate(this.endDate),
+            athleteIds: Athlete.ids(this.athletes),
+            segmentIds: Segment.ids(this.segments)
+        };
     }
 }

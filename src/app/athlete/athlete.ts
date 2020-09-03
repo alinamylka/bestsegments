@@ -42,6 +42,10 @@ export class Athlete {
         return new Map(athletes.map(athlete => [athlete.id, athlete]));
     }
 
+    static ids(athletes: Athlete[]): number[] {
+        return athletes.map(athlete => athlete.id);
+    }
+
     save(service: AthleteStoreService): Athlete {
         service.addAthlete(this).subscribe();
         return this;

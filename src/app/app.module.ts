@@ -18,6 +18,7 @@ import { RankingComponent } from './ranking/ranking.component';
 import {LayoutModule} from './layout/layout.module';
 import {LoaderService} from './layout/loader/loader.service';
 import { AddChallengeComponent } from './add-challenge/add-challenge.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -36,6 +37,7 @@ import { AddChallengeComponent } from './add-challenge/add-challenge.component';
         BrowserModule,
         AppRoutingModule,
         LayoutModule,
+        ReactiveFormsModule,
         OAuthModule.forRoot()
     ],
     providers: [
