@@ -11,16 +11,14 @@ import {ChallengeDetailResolver} from './challenge/challenge-detail-resolver';
 const routes: Routes = [
     {
         path: 'challenges',
-        component: ChallengesComponent,
-        children: [
-            {
-                path: ':id',
-                component: ChallengeComponent,
-                resolve: {
-                    challenge: ChallengeDetailResolver
-                }
-            }
-        ]
+        component: ChallengesComponent
+    },
+    {
+        path: 'challenges/:id',
+        component: ChallengeComponent,
+        resolve: {
+            challenge: ChallengeDetailResolver
+        }
     },
     {
         path: 'add-challenge',

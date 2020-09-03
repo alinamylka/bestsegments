@@ -15,6 +15,8 @@ import {ChallengeComponent} from './challenge/challenge.component';
 import {ChallengesComponent} from './challenges/challenges.component';
 import {MatListModule} from '@angular/material/list';
 import { RankingComponent } from './ranking/ranking.component';
+import {LayoutModule} from './layout/layout.module';
+import {LoaderService} from './layout/loader/loader.service';
 
 @NgModule({
     declarations: [
@@ -31,6 +33,7 @@ import { RankingComponent } from './ranking/ranking.component';
         MatListModule,
         BrowserModule,
         AppRoutingModule,
+        LayoutModule,
         OAuthModule.forRoot()
     ],
     providers: [
@@ -38,7 +41,8 @@ import { RankingComponent } from './ranking/ranking.component';
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptor,
             multi: true
-        }
+        },
+        LoaderService
     ],
     bootstrap: [AppComponent]
 })

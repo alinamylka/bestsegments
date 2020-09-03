@@ -2,23 +2,4 @@
 <div>This challenge searches for the best efforts from {{startDate | date:'yyyy-MM-dd'}}
     to {{endDate | date:'yyyy-MM-dd'}} on the following segments
 </div>
-
-<!--
-<h2> All Segments </h2>
-<mat-list>
-    <mat-list-item *ngFor="let segment of segments">
-        <h3 matLine> {{segment.name}}</h3>
-        <h2 matLine> distance: {{segment.distance}}</h2>
-    </mat-list-item>
-</mat-list>
-
-<h2> All athletes </h2>
-<mat-list>
-    <mat-list-item *ngFor="let athlete of athletes">
-        <img matListAvatar src="{{athlete.profile}}">
-        <h2 matLine> {{athlete.firstname}}  {{athlete.lastname}} </h2>
-    </mat-list-item>
-</mat-list>
--->
-
 <app-ranking [athleteResults]="athleteResults"></app-ranking>

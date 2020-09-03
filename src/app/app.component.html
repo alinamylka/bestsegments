@@ -1,5 +1,7 @@
-
-<body>
+<app-header></app-header>
+<div *ngIf="!hasToken">
+    <app-authorize></app-authorize>
+</div>
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
         <h1 class="display-3">{{title}}</h1>
@@ -8,14 +10,8 @@
     </div>
 </div>
 
-<div *ngIf="!hasToken">
-    <app-authorize></app-authorize>
-</div>
 
-
-<div class = "route-container">
+<div class="container-fluid">
+    <app-loader >Loading...</app-loader>
     <router-outlet></router-outlet>
 </div>
-
-</body>
-
