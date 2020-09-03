@@ -6,6 +6,7 @@ import {SegmentComponent} from './segment/segment.component';
 import {ChallengesComponent} from './challenges/challenges.component';
 import {ChallengeComponent} from './challenge/challenge.component';
 import {ChallengeDetailResolver} from './challenge/challenge-detail-resolver';
+import {AddChallengeComponent} from './add-challenge/add-challenge.component';
 
 
 const routes: Routes = [
@@ -22,7 +23,7 @@ const routes: Routes = [
     },
     {
         path: 'add-challenge',
-        component: ChallengeComponent
+        component: AddChallengeComponent
     }
 ];
 

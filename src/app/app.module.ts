@@ -17,6 +17,7 @@ import {MatListModule} from '@angular/material/list';
 import { RankingComponent } from './ranking/ranking.component';
 import {LayoutModule} from './layout/layout.module';
 import {LoaderService} from './layout/loader/loader.service';
+import { AddChallengeComponent } from './add-challenge/add-challenge.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import {LoaderService} from './layout/loader/loader.service';
         SegmentEffortComponent,
         ChallengeComponent,
         ChallengesComponent,
-        RankingComponent
+        RankingComponent,
+        AddChallengeComponent
     ],
     imports: [
         MatListModule,
