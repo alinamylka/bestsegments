@@ -9,8 +9,6 @@ import {ChallengeDetailResolver} from './challenge/challenge-detail-resolver';
 
 
 const routes: Routes = [
-    {path: 'segment-efforts', component: SegmentEffortComponent},
-    {path: 'segments', component: SegmentComponent},
     {
         path: 'challenges',
         component: ChallengesComponent,
@@ -23,6 +21,10 @@ const routes: Routes = [
                 }
             }
         ]
+    },
+    {
+        path: 'add-challenge',
+        component: ChallengeComponent
     }
 ];
 
