@@ -1,6 +1,4 @@
 import {Component} from '@angular/core';
-import {OAuthService} from 'angular-oauth2-oidc';
-import {AuthorizeService} from './authorize/authorize.service';
 
 @Component({
     selector: 'app-root',
@@ -11,9 +9,6 @@ export class AppComponent {
     title = 'Best Segments';
     subtitle = 'Alina Mylka';
 
-    constructor(private authorisationService: AuthorizeService) {
-    }
-    get hasToken(): boolean {
-        return this.authorisationService.hasToken();
+    constructor() {
     }
 }

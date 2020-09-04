@@ -7,9 +7,9 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {SegmentComponent} from './segment/segment.component';
 import {AthleteComponent} from './athlete/athlete.component';
-import {AuthorizeComponent} from './authorize/authorize.component';
+import {AuthorizeComponent} from './layout/authorize/authorize.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
-import {TokenInterceptor} from './authorize/authorise.interceptor';
+import {TokenInterceptor} from './layout/authorize/authorise.interceptor';
 import {SegmentEffortComponent} from './segment.effort/segment.effort.component';
 import {ChallengeComponent} from './challenge/challenge.component';
 import {ChallengesComponent} from './challenges/challenges.component';
@@ -25,7 +25,6 @@ import {ReactiveFormsModule} from '@angular/forms';
         AppComponent,
         SegmentComponent,
         AthleteComponent,
-        AuthorizeComponent,
         SegmentEffortComponent,
         ChallengeComponent,
         ChallengesComponent,

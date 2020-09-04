@@ -18,6 +18,10 @@ export class AuthorizeComponent implements OnInit {
         this.authService.login();
     }
 
+    get hasToken(): boolean {
+        return this.authService.hasToken();
+    }
+
     ngOnInit() {
     }
 
