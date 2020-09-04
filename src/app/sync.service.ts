@@ -49,14 +49,14 @@ export class SyncService {
     }
 
     private syncEfforts(challenges: ChallengeStoreDto[]) {
-        return challenges.map(challenge => this.toEfforts(challenge.id, challenge.segmentIds))
+        return challenges.map(challenge => this.toEfforts(challenge.id, challenge.segmentIds, challenge.startDate, challenge.endDate))
             .reduce((a, b) => a.concat(b), [])
             .forEach(effortsObservable => effortsObservable.subscribe(efforts => this.effortStoreService.add(efforts)));
     }
 
-    private toEfforts(challengeId: string, segmentIds: string[]): Observable<SegmentEffort[]>[] {
+    private toEfforts(challengeId: string, segmentIds: string[], startDate: string, endDate: string): Observable<SegmentEffort[]>[] {
         return segmentIds
-            .map(segmentId => this.effortStravaService.findSegmentEffortsById(segmentId)
+            .map(segmentId => this.effortStravaService.findSegmentEfforts(segmentId, startDate, endDate)
                 .pipe(map(segmentEffortDtos => this.toSegmentEfforts(segmentEffortDtos, challengeId))));
     }
 
