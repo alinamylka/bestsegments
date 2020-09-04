@@ -1,10 +1,7 @@
 <div class="container">
     <div class="row" *ngFor="let challenge of challenges$| async">
         <div class="col-sm">
-            {{ challenge.name }}
-        </div>
-        <div class="col-sm">
-            <span> <a routerLink="challenge/{{challenge.id}}"> Details </a></span>
+            <span> <a routerLink="challenge/{{challenge.id}}"> {{ challenge.name }} </a></span>
         </div>
         <div class="col-sm">
             <a routerLink="ranking/{{challenge.id}}"> Ranking </a>
