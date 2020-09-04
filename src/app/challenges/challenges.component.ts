@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ChallengeStoreDto, ChallengesStoreService} from './challenges-store.service';
+import {ChallengesStoreService, ChallengeStoreDto} from './challenges-store.service';
 import {Observable} from 'rxjs';
-import {SyncService} from '../sync/sync.service';
 
 @Component({
     selector: 'app-challenges',
@@ -10,11 +9,11 @@ import {SyncService} from '../sync/sync.service';
 })
 export class ChallengesComponent implements OnInit {
     challenges$: Observable<ChallengeStoreDto[]>;
-    constructor(private service: ChallengesStoreService, private syncService: SyncService) {
+
+    constructor(private service: ChallengesStoreService) {
     }
 
     ngOnInit(): void {
         this.challenges$ = this.service.challenges();
-        this.syncService.start();
     }
 }
