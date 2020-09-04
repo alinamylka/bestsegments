@@ -5,6 +5,7 @@ import {Athlete} from '../athlete/athlete';
 import {ActivatedRoute} from '@angular/router';
 import {SegmentEffort} from '../segment.effort/segment.effort';
 import {AthleteResult} from '../ranking/athlete.result';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-challenge',
@@ -14,7 +15,7 @@ import {AthleteResult} from '../ranking/athlete.result';
 export class ChallengeComponent implements OnInit {
     private challenge: Challenge;
 
-    constructor(private route: ActivatedRoute) {
+    constructor(private route: ActivatedRoute, private location: Location) {
     }
 
     ngOnInit(): void {
@@ -24,6 +25,10 @@ export class ChallengeComponent implements OnInit {
 
     get name(): string {
         return this.challenge.name;
+    }
+
+    goBack() {
+        this.location.back();
     }
 
     get athletes(): Athlete[] {

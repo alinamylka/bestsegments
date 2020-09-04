@@ -1,4 +1,34 @@
-<h1>{{name}}</h1>
-<div>This challenge searches for the best efforts from {{startDate | date:'yyyy-MM-dd'}}
-    to {{endDate | date:'yyyy-MM-dd'}} on the following segments
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">{{name}} from {{startDate | date:'yyyy-MM-dd'}}
+            to {{endDate | date:'yyyy-MM-dd'}}
+        </h4>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table">
+                    <tr>
+                        <th>Challenge ID</th>
+                        <td>{{challenge?.id}}</td>
+                    </tr>
+                    <tr>
+                        <th>Segments</th>
+                        <td>
+                            <table class="table">
+                                <tr *ngFor="let segment of challenge?.segments">{{segment.name}}</tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Athletes</th>
+                        <td>
+                            <table class="table">
+                                <tr *ngFor="let athlete of challenge?.athletes">{{athlete.firstname}} {{athlete.lastname}}</tr>
+                            </table>
+                    </tr>
+                </table>
+                <button type="button" class="btn btn-primary" (click)="goBack()">Back</button>
+            </div>
+
+        </div>
+    </div>
 </div>
