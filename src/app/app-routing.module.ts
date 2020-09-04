@@ -14,6 +14,13 @@ const routes: Routes = [
         component: ChallengesComponent
     },
     {
+        path: 'challenges/challenge/:id',
+        component: ChallengeComponent,
+        resolve: {
+            challenge: ChallengeDetailResolver
+        }
+    },
+    {
         path: 'challenges/ranking/:id',
         component: RankingComponent,
         resolve: {

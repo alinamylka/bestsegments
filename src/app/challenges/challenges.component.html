@@ -1,6 +1,13 @@
-<mat-list>
-    <mat-list-item *ngFor="let challenge of challenges$| async">
-        <a routerLink="ranking/{{challenge.id}}"> {{ challenge.name }} </a>
-    </mat-list-item>
-</mat-list>
-
+<div class="container">
+    <div class="row" *ngFor="let challenge of challenges$| async">
+        <div class="col-sm">
+            {{ challenge.name }}
+        </div>
+        <div class="col-sm">
+            <span> <a routerLink="challenge/{{challenge.id}}"> details </a></span>
+        </div>
+        <div class="col-sm">
+            <a routerLink="ranking/{{challenge.id}}"> ranking </a>
+        </div>
+    </div>
+</div>
