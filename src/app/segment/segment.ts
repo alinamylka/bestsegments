@@ -6,7 +6,7 @@ import {SegmentEffort} from '../segment.effort/segment.effort';
 import {SegmentStoreDto} from './segment.store.dto';
 
 export class Segment {
-    constructor(private id: number,
+    constructor(private id: string,
                 public name: string,
                 public climbCategory: number,
                 public climbCategoryDesc: number,

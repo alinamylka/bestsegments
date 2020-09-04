@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AthleteStravaService} from '../athlete/athlete-strava.service';
 import {AthleteStravaDto} from '../athlete/athlete.strava.dto';
 import {Athlete} from '../athlete/athlete';
-import {ChallengeStoreDto, ChallengesStoreService} from '../challenges/challenges-store.service';
+import {ChallengesStoreService, ChallengeStoreDto} from '../challenges/challenges-store.service';
 import {SegmentEffortStravaService} from '../segment.effort/segment-effort-strava.service';
 import {AthleteStoreService} from '../athlete/athlete-store.service';
 import {SegmentEffortStoreService} from '../segment.effort/segment-effort-store.service';
@@ -35,7 +35,8 @@ export class SyncService {
                     .subscribe(challenges => this.syncEfforts(challenges));
             });
         this.challengeService.challenges()
-            .pipe(mergeMap(challenges => this.segmentStravaService.segmentByIds(this.toSegmentIds(challenges))))
+            .pipe(mergeMap(challenges => this.segmentStravaService
+                .segmentByIds(this.toSegmentIds(challenges.filter(challenge => challenge.segmentIds)))))
             .subscribe(segmentDtos => this.segmentStoreService.add(this.toSegments(segmentDtos)));
     }
 
@@ -43,7 +44,7 @@ export class SyncService {
         return segmentDtos.map(segmentDto => Segment.initFromStrava(segmentDto));
     }
 
-    private toSegmentIds(challenges: ChallengeStoreDto[]): number[] {
+    private toSegmentIds(challenges: ChallengeStoreDto[]): string[] {
         return challenges.map(challenge => challenge.segmentIds).reduce((a, b) => a.concat(b));
     }
 
@@ -53,13 +54,13 @@ export class SyncService {
             .forEach(effortsObservable => effortsObservable.subscribe(efforts => this.effortStoreService.add(efforts)));
     }
 
-    private toEfforts(challengeId: number, segmentIds: number[]): Observable<SegmentEffort[]>[] {
+    private toEfforts(challengeId: string, segmentIds: string[]): Observable<SegmentEffort[]>[] {
         return segmentIds
             .map(segmentId => this.effortStravaService.findSegmentEffortsById(segmentId)
                 .pipe(map(segmentEffortDtos => this.toSegmentEfforts(segmentEffortDtos, challengeId))));
     }
 
-    private toSegmentEfforts(segmentEffortDtos, challengeId: number): SegmentEffort[] {
+    private toSegmentEfforts(segmentEffortDtos, challengeId: string): SegmentEffort[] {
         return segmentEffortDtos.map(segmentEffortDto => SegmentEffort.initFromStrava(segmentEffortDto, challengeId));
     }
 }

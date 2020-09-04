@@ -5,7 +5,7 @@ import {AthleteStoreService} from './athlete-store.service';
 import {AthleteStoreDto} from './athlete.store.dto';
 
 export class Athlete {
-    constructor(private id: number,
+    constructor(private id: string,
                 private username: string,
                 public firstname: string,
                 public lastname: string,
@@ -38,11 +38,11 @@ export class Athlete {
         return athleteStoreDtos.map(dto => this.initFromStore(dto));
     }
 
-    public static byId(athletes: Athlete[]): Map<number, Athlete> {
+    public static byId(athletes: Athlete[]): Map<string, Athlete> {
         return new Map(athletes.map(athlete => [athlete.id, athlete]));
     }
 
-    static ids(athletes: Athlete[]): number[] {
+    static ids(athletes: Athlete[]): string[] {
         return athletes.map(athlete => athlete.id);
     }
 

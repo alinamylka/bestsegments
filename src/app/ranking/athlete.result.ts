@@ -19,8 +19,8 @@ export class AthleteResult {
     }
 
     public static from(athletes: Athlete[], efforts: SegmentEffort[], segments: Segment[]): AthleteResult[] {
-        const effortsByAthleteId: Map<number, SegmentEffort[]> = SegmentEffort.byAthleteId(efforts);
-        const athletesById: Map<number, Athlete> = Athlete.byId(athletes);
+        const effortsByAthleteId: Map<string, SegmentEffort[]> = SegmentEffort.byAthleteId(efforts);
+        const athletesById: Map<string, Athlete> = Athlete.byId(athletes);
         const athleteResults = [];
         effortsByAthleteId.forEach((segmentEfforts, athleteId) => {
             athleteResults.push(

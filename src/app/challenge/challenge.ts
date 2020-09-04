@@ -14,7 +14,7 @@ import {AthleteResult} from '../ranking/athlete.result';
 import {formatDate} from '../utils';
 
 export class Challenge {
-    constructor(public id: number,
+    constructor(public id: string,
                 public name: string,
                 public athletes: Athlete[],
                 public segments: Segment[],
@@ -23,12 +23,12 @@ export class Challenge {
                 public efforts: SegmentEffort[]) {
     }
 
-    public static init(id: number, name: string, startDate: Date, endDate: Date, athletes: Athlete[],
+    public static init(id: string, name: string, startDate: Date, endDate: Date, athletes: Athlete[],
                        segments: Segment[], efforts: SegmentEffort[]): Challenge {
         return new Challenge(id, name, athletes, segments, startDate, endDate, efforts);
     }
 
-    public static load(id: number, challengesService: ChallengesStoreService,
+    public static load(id: string, challengesService: ChallengesStoreService,
                        segmentService: SegmentStoreService,
                        athleteService: AthleteStoreService,
                        segmentEffortService: SegmentEffortStoreService): Observable<Challenge> {
@@ -44,9 +44,12 @@ export class Challenge {
                                    effortStoreService: SegmentEffortStoreService, challengeDto: ChallengeStoreDto): Observable<Challenge> {
         const startDate = new Date(challengeDto.startDate);
         const endDate = new Date(challengeDto.endDate);
-        const segments$ = segmentStoreService.segmentByIds(challengeDto.segmentIds);
-        const athletes$ = athleteStoreService.athletesByIds(challengeDto.athleteIds);
-        const efforts$ = effortStoreService.findBestSegmentEfforts(challengeDto.segmentIds, startDate, endDate);
+        const segments$ = challengeDto.segmentIds ?
+            segmentStoreService.segmentByIds(challengeDto.segmentIds) : of([]);
+        const athletes$ = challengeDto.athleteIds ?
+            athleteStoreService.athletesByIds(challengeDto.athleteIds) : of([]);
+        const efforts$ = challengeDto.segmentIds ?
+            effortStoreService.findBestSegmentEfforts(challengeDto.segmentIds, startDate, endDate) : of([]);
         return forkJoin<AthleteStoreDto[], SegmentStoreDto[], SegmentEffortStoreDto[]>(
             [athletes$, segments$, efforts$])
             .pipe(map(([athleteStoreDtos, segmentStoreDtos, effortDtos]) => {
@@ -60,7 +63,7 @@ export class Challenge {
             }));
     }
 
-     toAthleteResult(): AthleteResult[]{
+    toAthleteResult(): AthleteResult[] {
         return AthleteResult.from(this.athletes, this.efforts, this.segments);
     }
 
@@ -69,7 +72,7 @@ export class Challenge {
     }
 
     private toDtoStore(): ChallengeStoreDto {
-        return  {
+        return {
             id: this.id,
             name: this.name,
             startDate: formatDate(this.startDate),

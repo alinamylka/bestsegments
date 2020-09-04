@@ -6,10 +6,10 @@ import {map} from 'rxjs/operators';
 
 
 export interface ChallengeStoreDto {
-    id: number;
+    id: string;
     name: string;
-    segmentIds: number[];
-    athleteIds: number[];
+    segmentIds: string[];
+    athleteIds: string[];
     startDate: string;
     endDate: string;
 }
@@ -31,11 +31,11 @@ export class ChallengesStoreService {
             this.ALL, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
     }
 
-    getChallengeById(id: number): Observable<ChallengeStoreDto> {
+    getChallengeById(id: string): Observable<ChallengeStoreDto> {
         return this.challenges().pipe(map(challenges => challenges.find(challenge => id === challenge.id)));
     }
 
-    byAthleteId(id: number): Observable<ChallengeStoreDto[]> {
+    byAthleteId(id: string): Observable<ChallengeStoreDto[]> {
         return this.http.get<ChallengeStoreDto[]>(
             this.BY_ATHLETE_ID_URL + '/' + id, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
     }

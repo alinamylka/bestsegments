@@ -1,7 +1,7 @@
 import {SegmentStravaDto} from '../segment/segment.strava.dto';
 
 export interface SegmentEffortStravaDto {
-    id: number;
+    id: string;
     athlete: SegmentAthleteStravaDto;
     elapsed_time: number;
     moving_time: number;
@@ -19,6 +19,6 @@ export interface SegmentEffortStravaDto {
 }
 
 export interface SegmentAthleteStravaDto {
-    id: number;
+    id: string;
     resource_state: number;
 }

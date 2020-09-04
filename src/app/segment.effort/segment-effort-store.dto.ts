@@ -1,8 +1,8 @@
 export interface SegmentEffortStoreDto {
-    id: number;
-    challengeId: number;
-    athleteId: number;
-    segmentId: number;
+    id: string;
+    challengeId: string;
+    athleteId: string;
+    segmentId: string;
     name: string;
     elapsedTime: number;
     movingTime: number;

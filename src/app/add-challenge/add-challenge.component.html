@@ -41,24 +41,17 @@
                     </div>
                     <div class="form-group ">
                         <label>Segments</label>
-                        <input type="text" class="form-control" formControlName="segments"
-                                [ngClass]="{'is-invalid': segments.errors && (segments.touched || segments.dirty), 'is-valid':segments.valid}">
+                        <input type="text" class="form-control" formControlName="segmentIds"
+                                [ngClass]="{'is-invalid': segmentIds.errors && (segmentIds.touched || segmentIds.dirty), 'is-valid':segmentIds.valid}">
                         <div class="invalid-feedback">
                             <strong>At least one segment should be defined</strong>
                         </div>
                     </div>
-                    <button type="submit" [disabled]="myForm.invalid" (click)="addChallenge(myForm.value)"
+                    <button type="submit" [disabled]="myForm.invalid" (click)="addChallenge()"
                             class="btn btn-primary">Submit
                     </button>
                     <button class="btn btn-default" (click)="myForm.reset()">Reset</button>
                 </form>
-            </div>
-
-            <div class="col-md-6">
-                <label>
-                    <strong>myForm : JSON</strong>
-                </label>
-                <pre class="alert alert-dark">{{myForm.value | json}}</pre>
             </div>
         </div>
     </div>

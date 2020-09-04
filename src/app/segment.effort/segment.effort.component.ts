@@ -20,7 +20,7 @@ export class SegmentEffortComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    private loadEfforts(segmentId: number) {
+    private loadEfforts(segmentId: string) {
       /*  this.service.findSegmentEffortsById(segmentId)
             .subscribe((data: SegmentEffortDto[]) => {
                 const segmentEfforts: SegmentEffortDto[] = data;

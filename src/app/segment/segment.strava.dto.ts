@@ -1,5 +1,5 @@
 export interface SegmentStravaDto {
-    id: number;
+    id: string;
     name: string;
     climb_category: number;
     climb_category_desc: number;

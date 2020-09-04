@@ -4,10 +4,10 @@ import {Segment} from '../segment/segment';
 import {SegmentEffortStoreDto} from './segment-effort-store.dto';
 
 export class SegmentEffort {
-    constructor(private id: number,
-                public challengeId: number,
-                public athleteId: number,
-                public segmentId: number,
+    constructor(private id: string,
+                public challengeId: string,
+                public athleteId: string,
+                public segmentId: string,
                 public name: string,
                 public elapsedTime: number,
                 public movingTime: number,
@@ -22,7 +22,7 @@ export class SegmentEffort {
 
     }
 
-    public static initFromStrava(dto: SegmentEffortStravaDto, challengeId: number): SegmentEffort {
+    public static initFromStrava(dto: SegmentEffortStravaDto, challengeId: string): SegmentEffort {
         return new SegmentEffort(dto.id,
             challengeId,
             dto.athlete.id,
@@ -68,23 +68,23 @@ export class SegmentEffort {
             .reduce((a, b) => a + b, 0);
     }
 
-    static byAthleteId(efforts: SegmentEffort[]): Map<number, SegmentEffort[]> {
+    static byAthleteId(efforts: SegmentEffort[]): Map<string, SegmentEffort[]> {
         return efforts ? groupBy(efforts, effort => effort.athleteId) : new Map();
     }
 
-    static bySegmentId(efforts: SegmentEffort[]): Map<number, SegmentEffort> {
-        const bySegmentId: Map<number, SegmentEffort> = new Map();
+    static bySegmentId(efforts: SegmentEffort[]): Map<string, SegmentEffort> {
+        const bySegmentId: Map<string, SegmentEffort> = new Map();
         efforts.forEach(effort => bySegmentId.set(effort.segmentId, effort));
         return bySegmentId;
     }
 
-    static bySegmentIdBestTime(efforts: SegmentEffort[]): Map<number, number> {
-        const bySegmentId: Map<number, number> = new Map();
+    static bySegmentIdBestTime(efforts: SegmentEffort[]): Map<string, number> {
+        const bySegmentId: Map<string, number> = new Map();
         efforts.forEach(effort => bySegmentId.set(effort.segmentId, effort.elapsedTime));
         return bySegmentId;
     }
 
-    belongsTo(segmentId: number) {
+    belongsTo(segmentId: string) {
         return this.segmentId === segmentId;
     }
 }

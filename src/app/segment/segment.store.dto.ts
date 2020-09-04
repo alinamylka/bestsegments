@@ -1,5 +1,5 @@
 export interface SegmentStoreDto {
-    id: number;
+    id: string;
     name: string;
     climbCategory: number;
     climbCategoryDesc: number;

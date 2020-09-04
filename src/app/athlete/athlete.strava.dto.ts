@@ -1,5 +1,5 @@
 export interface AthleteStravaDto {
-    id: number;
+    id: string;
     username: string;
     firstname: string;
     lastname: string;

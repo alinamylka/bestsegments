@@ -12,7 +12,7 @@ export class SegmentEffortStravaService {
     constructor(private http: HttpClient) {
     }
 
-    findSegmentEffortsById(segmentId: number): Observable<SegmentEffortStravaDto[]> {
+    findSegmentEffortsById(segmentId: string): Observable<SegmentEffortStravaDto[]> {
         return this.http.get<SegmentEffortStravaDto[]>(SegmentEffortStravaService.EFFORTS_URL, {
             params: {
                 segment_id: segmentId.toString(),
@@ -22,7 +22,7 @@ export class SegmentEffortStravaService {
         });
     }
 
-    findSegmentEfforts(segmentId: number, startDate: Date, endDate: Date): Observable<SegmentEffortStravaDto[]> {
+    findSegmentEfforts(segmentId: string, startDate: Date, endDate: Date): Observable<SegmentEffortStravaDto[]> {
         return this.http.get<SegmentEffortStravaDto[]>(SegmentEffortStravaService.EFFORTS_URL, {
             params: {
                 segment_id: segmentId.toString(),
