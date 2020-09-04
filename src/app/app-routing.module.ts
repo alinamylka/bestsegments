@@ -1,12 +1,11 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
-import {SegmentEffortComponent} from './segment.effort/segment.effort.component';
-import {SegmentComponent} from './segment/segment.component';
 import {ChallengesComponent} from './challenges/challenges.component';
 import {ChallengeComponent} from './challenge/challenge.component';
 import {ChallengeDetailResolver} from './challenge/challenge-detail-resolver';
 import {AddChallengeComponent} from './add-challenge/add-challenge.component';
+import {RankingComponent} from './ranking/ranking.component';
 
 
 const routes: Routes = [
@@ -15,8 +14,8 @@ const routes: Routes = [
         component: ChallengesComponent
     },
     {
-        path: 'challenges/:id',
-        component: ChallengeComponent,
+        path: 'challenges/ranking/:id',
+        component: RankingComponent,
         resolve: {
             challenge: ChallengeDetailResolver
         }

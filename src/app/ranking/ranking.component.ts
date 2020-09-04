@@ -1,5 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AthleteResult} from './athlete.result';
+import {ActivatedRoute} from '@angular/router';
+import {Challenge} from '../challenge/challenge';
 
 @Component({
     selector: 'app-ranking',
@@ -7,12 +9,14 @@ import {AthleteResult} from './athlete.result';
     styleUrls: ['./ranking.component.css']
 })
 export class RankingComponent implements OnInit {
-    @Input() athleteResults: AthleteResult[];
+    public athleteResults: AthleteResult[];
 
-    constructor() {
+    constructor(private route: ActivatedRoute) {
     }
 
     ngOnInit(): void {
+        this.route.data
+            .subscribe((data: { challenge: Challenge }) => this.athleteResults = data.challenge.toAthleteResult());
     }
 
     formatSeconds(secs): string {

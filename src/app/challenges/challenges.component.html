@@ -1,6 +1,6 @@
 <mat-list>
     <mat-list-item *ngFor="let challenge of challenges$| async">
-        <a [routerLink]="[challenge.id]"> {{ challenge.name }} </a>
+        <a routerLink="ranking/{{challenge.id}}"> {{ challenge.name }} </a>
     </mat-list-item>
 </mat-list>
 
