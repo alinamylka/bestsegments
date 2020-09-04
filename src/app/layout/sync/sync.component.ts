@@ -20,7 +20,6 @@ export class SyncComponent implements OnInit {
     }
 
     syncClick() {
-        console.log('Made It');
         this.syncService.start();
     }
 }
