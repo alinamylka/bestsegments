@@ -61,6 +61,7 @@ export class AddChallengeComponent implements OnInit {
                         .subscribe(() => {
                             this.formSubmitted = true;
                             this.loaderService.hideLoader();
+                            this.router.navigateByUrl('/challenges');
                         });
                 },
                 error => {
