@@ -35,18 +35,15 @@ export class SyncService {
                 .challenges(this.challengeService)
                 .subscribe(challenges => this.syncEfforts(challenges)));
 
-        try {
-
-            this.challengeService.challenges()
-                .pipe(mergeMap(challenges => this.segmentStravaService
-                    .segmentByIds(this.toSegmentIds(challenges.filter(challenge => challenge.segmentIds)))))
-                .subscribe(segmentDtos => {
+        this.challengeService.challenges()
+            .pipe(mergeMap(challenges => this.segmentStravaService
+                .segmentByIds(this.toSegmentIds(challenges))))
+            .subscribe(
+                segmentDtos => {
                     this.segmentStoreService.add(this.toSegments(segmentDtos));
                     loaderService.hideLoader();
-                });
-        } catch (err) {
-            loaderService.hideLoader();
-        }
+                },
+                error => loaderService.hideLoaderWithMessage('Could not sync try again later'));
     }
 
     private toSegments(segmentDtos: SegmentStravaDto[]) {

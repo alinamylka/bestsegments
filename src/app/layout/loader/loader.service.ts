@@ -1,16 +1,24 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable()
 export class LoaderService {
 
-  visible: boolean;
+    visible: boolean;
+    message: string;
 
-  constructor() { }
+    constructor() {
+    }
 
-  showLoader() {
-    this.visible = true;
-  }
-  hideLoader() {
-    this.visible = false;
-  }
+    showLoader() {
+        this.visible = true;
+    }
+
+    hideLoader() {
+        this.visible = false;
+    }
+
+    hideLoaderWithMessage(message: string) {
+        this.message = message;
+        this.visible = false;
+    }
 }
