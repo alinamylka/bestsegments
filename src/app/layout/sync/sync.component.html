@@ -1,7 +1,7 @@
-<div *ngIf="hasToken" class="container">
+<div *ngIf="hasToken()" class="container">
     <div class="center-card">
         <div class="center-message">
-            <button (click)="syncClick()">Sync efforts</button>
+            Hi  {{athlete().firstname}} <button (click)="syncClick()">Sync efforts</button>
         </div>
     </div>
 </div>

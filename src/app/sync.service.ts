@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {AthleteStravaService} from './athlete/athlete-strava.service';
-import {AthleteStravaDto} from './athlete/athlete.strava.dto';
 import {Athlete} from './athlete/athlete';
 import {ChallengesStoreService, ChallengeStoreDto} from './challenges/challenges-store.service';
 import {SegmentEffortStravaService} from './segment.effort/segment-effort-strava.service';
@@ -13,6 +12,7 @@ import {Segment} from './segment/segment';
 import {SegmentStravaDto} from './segment/segment.strava.dto';
 import {Observable} from 'rxjs';
 import {SegmentEffort} from './segment.effort/segment.effort';
+import {LoaderService} from './layout/loader/loader.service';
 
 @Injectable({
     providedIn: 'root'
@@ -27,17 +27,26 @@ export class SyncService {
                 private effortStoreService: SegmentEffortStoreService) {
     }
 
-    public start() {
-        this.athleteStravaService.athleteInfo()
-            .subscribe((data: AthleteStravaDto) => {
-                Athlete.initFromStrava(data).save(this.athleteStoreService)
-                    .challenges(this.challengeService)
-                    .subscribe(challenges => this.syncEfforts(challenges));
-            });
-        this.challengeService.challenges()
-            .pipe(mergeMap(challenges => this.segmentStravaService
-                .segmentByIds(this.toSegmentIds(challenges.filter(challenge => challenge.segmentIds)))))
-            .subscribe(segmentDtos => this.segmentStoreService.add(this.toSegments(segmentDtos)));
+    public start(loaderService: LoaderService) {
+        loaderService.showLoader();
+        Athlete.load(this.athleteStravaService)
+            .subscribe(athlete => athlete
+                .save(this.athleteStoreService)
+                .challenges(this.challengeService)
+                .subscribe(challenges => this.syncEfforts(challenges)));
+
+        try {
+
+            this.challengeService.challenges()
+                .pipe(mergeMap(challenges => this.segmentStravaService
+                    .segmentByIds(this.toSegmentIds(challenges.filter(challenge => challenge.segmentIds)))))
+                .subscribe(segmentDtos => {
+                    this.segmentStoreService.add(this.toSegments(segmentDtos));
+                    loaderService.hideLoader();
+                });
+        } catch (err) {
+            loaderService.hideLoader();
+        }
     }
 
     private toSegments(segmentDtos: SegmentStravaDto[]) {

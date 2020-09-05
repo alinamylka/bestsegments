@@ -81,4 +81,13 @@ export class Challenge {
             segmentIds: Segment.ids(this.segments)
         };
     }
+
+    public join(athlete: Athlete) {
+        this.athletes.push(athlete);
+        return this;
+    }
+
+    public save(service: ChallengesStoreService) {
+        service.add(this.toDtoStore());
+    }
 }

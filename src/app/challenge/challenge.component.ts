@@ -13,7 +13,7 @@ import { Location } from '@angular/common';
     styleUrls: ['./challenge.component.css']
 })
 export class ChallengeComponent implements OnInit {
-    private challenge: Challenge;
+    public challenge: Challenge;
 
     constructor(private route: ActivatedRoute, private location: Location) {
     }

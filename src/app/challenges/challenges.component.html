@@ -1,10 +1,13 @@
 <div class="container">
-    <div class="row" *ngFor="let challenge of challenges$| async">
+    <div class="row p-2" *ngFor="let challenge of challenges$| async">
         <div class="col-sm">
             <span> <a routerLink="challenge/{{challenge.id}}"> {{ challenge.name }} </a></span>
         </div>
         <div class="col-sm">
             <a routerLink="ranking/{{challenge.id}}"> Ranking </a>
+        </div>
+        <div class="col-sm" *ngIf="athleteInfoAvailable()">
+            <button type="button" class="btn btn-primary" [disabled]="belongsTo(challenge)" (click)="join(challenge)">Join</button>
         </div>
     </div>
 </div>

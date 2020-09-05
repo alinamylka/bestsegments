@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {JwksValidationHandler, OAuthEvent, OAuthService} from 'angular-oauth2-oidc';
+import {OAuthService} from 'angular-oauth2-oidc';
 import {authConfig} from './authorize.config';
 
 @Injectable({
