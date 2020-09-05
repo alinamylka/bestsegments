@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ChallengesStoreService, ChallengeStoreDto} from './challenges-store.service';
 import {Observable} from 'rxjs';
-import {AthleteStravaService} from '../athlete/athlete-strava.service';
 import {Athlete} from '../athlete/athlete';
-import {AthleteStoreDto} from '../athlete/athlete.store.dto';
 import {LoaderService} from '../layout/loader/loader.service';
+import {SyncService} from '../sync.service';
 
 @Component({
     selector: 'app-challenges',
@@ -15,7 +14,8 @@ export class ChallengesComponent implements OnInit {
     challenges$: Observable<ChallengeStoreDto[]>;
     athlete: Athlete;
 
-    constructor(private service: ChallengesStoreService, private loadService: LoaderService) {
+    constructor(private service: ChallengesStoreService, private syncService: SyncService,
+                private loadService: LoaderService) {
     }
 
     ngOnInit(): void {
@@ -30,7 +30,9 @@ export class ChallengesComponent implements OnInit {
     join(challengeStoreDto: ChallengeStoreDto) {
         this.loadService.showLoader();
         challengeStoreDto.athleteIds = this.athlete.add(challengeStoreDto.athleteIds);
-        this.service.add(challengeStoreDto).subscribe( data => this.loadService.hideLoader());
+        this.service.add(challengeStoreDto).subscribe(() => {
+            this.syncService.start(this.loadService);
+        });
     }
 
     belongsTo(challengeStoreDto: ChallengeStoreDto): boolean {
