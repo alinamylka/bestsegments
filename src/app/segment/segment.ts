@@ -4,6 +4,8 @@ import {SegmentEffortStravaDto} from '../segment.effort/segment-effort-strava.dt
 import {Router} from '@angular/router';
 import {SegmentEffort} from '../segment.effort/segment.effort';
 import {SegmentStoreDto} from './segment.store.dto';
+import {SegmentStravaService} from './segment-strava.serivce';
+import {SegmentStoreService} from './segment-store.serivce';
 
 export class Segment {
     constructor(private id: string,
@@ -46,5 +48,4 @@ export class Segment {
     public findBestEfforts(router: Router): Observable<SegmentEffortStravaDto[]> {
         router.navigate(['/segment-efforts'], {queryParams: {segmentId: this.id}});
     }
-
 }
