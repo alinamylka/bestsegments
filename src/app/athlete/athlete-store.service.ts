@@ -17,6 +17,12 @@ export class AthleteStoreService {
     constructor(private http: HttpClient) {
     }
 
+    athletesById(id: string): Observable<AthleteStoreDto> {
+        return this.http.get<AthleteStoreDto[]>(
+            AthleteStoreService.BY_IDS + '/' + id, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})})
+            .pipe(map(dtos => dtos[0]));
+    }
+
     athletesByIds(ids: string[]): Observable<AthleteStoreDto[]> {
         return this.http.get<AthleteStoreDto[]>(
             AthleteStoreService.BY_IDS + '/' + ids, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});

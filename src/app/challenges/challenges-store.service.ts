@@ -8,6 +8,8 @@ import {map} from 'rxjs/operators';
 export interface ChallengeStoreDto {
     id: string;
     name: string;
+    createdBy: string;
+    active: boolean;
     segmentIds: string[];
     athleteIds: string[];
     startDate: string;

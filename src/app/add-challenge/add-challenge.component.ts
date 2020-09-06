@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ChallengesStoreService, ChallengeStoreDto} from '../challenges/challenges-store.service';
 import {LoaderService} from '../layout/loader/loader.service';
-import {formatDate} from '../utils';
 import {SegmentStravaService} from '../segment/segment-strava.serivce';
 import {SegmentStoreService} from '../segment/segment-store.serivce';
 import {Segment} from '../segment/segment';
+import {Athlete} from '../athlete/athlete';
 
 @Component({
     selector: 'app-add-challenge',
@@ -17,6 +17,7 @@ export class AddChallengeComponent implements OnInit {
     formSubmitted = false;
     errorMessage = '';
     myForm: FormGroup;
+    athlete: Athlete;
 
     name: FormControl;
     startDate: FormControl;
@@ -35,7 +36,7 @@ export class AddChallengeComponent implements OnInit {
         this.startDate = new FormControl('', Validators.required);
         this.segmentIds = new FormControl('', Validators.required);
         this.endDate = new FormControl('', [Validators.required]);
-
+        this.athlete = Athlete.loadToLocalStorage();
         this.myForm = new FormGroup({
             name: this.name,
             segmentIds: this.segmentIds,
@@ -44,11 +45,6 @@ export class AddChallengeComponent implements OnInit {
         });
     }
 
-    segmentValidator(): ValidatorFn {
-        return (control: AbstractControl): { [key: string]: any } | null => {
-            return this.segmentIds.value.split(',');
-        };
-    }
 
     addChallenge() {
         this.loaderService.showLoader();
@@ -71,10 +67,12 @@ export class AddChallengeComponent implements OnInit {
                 });
     }
 
-    private readChallenge() {
+    private readChallenge(): ChallengeStoreDto {
         return {
             id: null,
             name: this.name.value,
+            createdBy: this.athlete.id,
+            active: true,
             startDate: this.startDate.value,
             endDate: this.endDate.value,
             segmentIds: this.segmentIds.value.split(','),

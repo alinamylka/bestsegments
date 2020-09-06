@@ -1,6 +1,6 @@
 import {Athlete} from '../athlete/athlete';
 import {Segment} from '../segment/segment';
-import {ChallengeStoreDto, ChallengesStoreService} from '../challenges/challenges-store.service';
+import {ChallengesStoreService, ChallengeStoreDto} from '../challenges/challenges-store.service';
 import {forkJoin, Observable, of} from 'rxjs';
 import {map, mergeMap} from 'rxjs/operators';
 import {SegmentEffort} from '../segment.effort/segment.effort';
@@ -16,6 +16,8 @@ import {formatDate} from '../utils';
 export class Challenge {
     constructor(public id: string,
                 public name: string,
+                public createdBy: Athlete,
+                public active: boolean,
                 public athletes: Athlete[],
                 public segments: Segment[],
                 public startDate: Date,
@@ -23,9 +25,9 @@ export class Challenge {
                 public efforts: SegmentEffort[]) {
     }
 
-    public static init(id: string, name: string, startDate: Date, endDate: Date, athletes: Athlete[],
+    public static init(id: string, name: string, createdBy: Athlete, active: boolean, startDate: Date, endDate: Date, athletes: Athlete[],
                        segments: Segment[], efforts: SegmentEffort[]): Challenge {
-        return new Challenge(id, name, athletes, segments, startDate, endDate, efforts);
+        return new Challenge(id, name, createdBy, active, athletes, segments, startDate, endDate, efforts);
     }
 
     public static load(id: string, challengesService: ChallengesStoreService,
@@ -50,11 +52,14 @@ export class Challenge {
             athleteStoreService.athletesByIds(challengeDto.athleteIds) : of([]);
         const efforts$ = challengeDto.segmentIds ?
             effortStoreService.findBestSegmentEfforts(challengeDto.segmentIds, startDate, endDate) : of([]);
-        return forkJoin<AthleteStoreDto[], SegmentStoreDto[], SegmentEffortStoreDto[]>(
-            [athletes$, segments$, efforts$])
-            .pipe(map(([athleteStoreDtos, segmentStoreDtos, effortDtos]) => {
+        const createdBy$ = athleteStoreService.athletesById(challengeDto.createdBy);
+        return forkJoin<AthleteStoreDto[], SegmentStoreDto[], SegmentEffortStoreDto[], AthleteStoreDto>(
+            [athletes$, segments$, efforts$, createdBy$])
+            .pipe(map(([athleteStoreDtos, segmentStoreDtos, effortDtos, createdBy]) => {
                 return Challenge.init(challengeDto.id,
                     challengeDto.name,
+                    Athlete.initFromStore(createdBy),
+                    challengeDto.active,
                     startDate,
                     endDate,
                     Athlete.from(athleteStoreDtos),
@@ -75,6 +80,8 @@ export class Challenge {
         return {
             id: this.id,
             name: this.name,
+            createdBy: this.createdBy.id,
+            active: this.active,
             startDate: formatDate(this.startDate),
             endDate: formatDate(this.endDate),
             athleteIds: Athlete.ids(this.athletes),
