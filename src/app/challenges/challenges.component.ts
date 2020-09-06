@@ -17,6 +17,7 @@ import {SegmentEffortStoreService} from '../segment.effort/segment-effort-store.
 export class ChallengesComponent implements OnInit {
     @Input() challenges$: Observable<Challenge[]>;
     athlete: Athlete;
+    challenges: Challenge[];
 
     constructor(
         private segmentStoreService: SegmentStoreService,
@@ -28,6 +29,11 @@ export class ChallengesComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.loadService.showLoader();
+        this.challenges$.subscribe( data => {
+            this.challenges = data;
+            this.loadService.hideLoader();
+        });
     }
 
     athleteInfoAvailable(): boolean {

@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row p-2" *ngFor="let challenge of challenges$| async">
+    <div class="row p-2" *ngFor="let challenge of challenges">
         <div class="col-sm">
             <span> <a routerLink="challenge/{{challenge.id}}"> {{ challenge.name }} </a></span>
         </div>
