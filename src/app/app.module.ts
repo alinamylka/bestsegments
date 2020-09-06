@@ -20,6 +20,7 @@ import { AddChallengeComponent } from './add-challenge/add-challenge.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { AllChallengesComponent } from './all-challenges/all-challenges.component';
 import { JoinedChallengesComponent } from './joined-challenges/joined-challenges.component';
+import { CreatedChallengesComponent } from './created-challenges/created-challenges.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { JoinedChallengesComponent } from './joined-challenges/joined-challenges
         RankingComponent,
         AddChallengeComponent,
         AllChallengesComponent,
-        JoinedChallengesComponent
+        JoinedChallengesComponent,
+        CreatedChallengesComponent
     ],
     imports: [
         MatListModule,
