@@ -7,7 +7,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {SegmentComponent} from './segment/segment.component';
 import {AthleteComponent} from './athlete/athlete.component';
-import {AuthorizeComponent} from './layout/authorize/authorize.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {TokenInterceptor} from './layout/authorize/authorise.interceptor';
 import {SegmentEffortComponent} from './segment.effort/segment.effort.component';
@@ -20,6 +19,7 @@ import {LoaderService} from './layout/loader/loader.service';
 import { AddChallengeComponent } from './add-challenge/add-challenge.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { AllChallengesComponent } from './all-challenges/all-challenges.component';
+import { JoinedChallengesComponent } from './joined-challenges/joined-challenges.component';
 
 @NgModule({
     declarations: [
@@ -31,7 +31,8 @@ import { AllChallengesComponent } from './all-challenges/all-challenges.componen
         ChallengesComponent,
         RankingComponent,
         AddChallengeComponent,
-        AllChallengesComponent
+        AllChallengesComponent,
+        JoinedChallengesComponent
     ],
     imports: [
         MatListModule,

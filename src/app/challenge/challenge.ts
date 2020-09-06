@@ -72,7 +72,21 @@ export class Challenge {
                             athleteStoreService: AthleteStoreService,
                             segmentStoreService: SegmentStoreService,
                             effortStoreService: SegmentEffortStoreService): Observable<Challenge[]> {
-        return challengesStoreService.challenges()
+        const challengeDtos = challengesStoreService.createdBy(createdBy);
+        return this.createChallenges(challengeDtos, segmentStoreService, athleteStoreService, effortStoreService);
+    }
+
+    static loadAllJoinedBy(joinedBy: string, challengesStoreService: ChallengesStoreService,
+                           athleteStoreService: AthleteStoreService,
+                           segmentStoreService: SegmentStoreService,
+                           effortStoreService: SegmentEffortStoreService) {
+        const challengeDtos = challengesStoreService.byAthleteId(joinedBy);
+        return this.createChallenges(challengeDtos, segmentStoreService, athleteStoreService, effortStoreService);
+
+    }
+
+    private static createChallenges(challengeDtos: Observable<ChallengeStoreDto[]>, segmentStoreService: SegmentStoreService, athleteStoreService: AthleteStoreService, effortStoreService: SegmentEffortStoreService) {
+        return challengeDtos
             .pipe(mergeMap(dtos =>
                 forkJoin(...dtos.map(dto => this.createChallenge(
                     segmentStoreService, athleteStoreService,

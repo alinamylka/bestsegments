@@ -6,6 +6,7 @@ import {ChallengeDetailResolver} from './challenge/challenge-detail-resolver';
 import {AddChallengeComponent} from './add-challenge/add-challenge.component';
 import {RankingComponent} from './ranking/ranking.component';
 import {AllChallengesComponent} from './all-challenges/all-challenges.component';
+import {JoinedChallengesComponent} from './joined-challenges/joined-challenges.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,10 @@ const routes: Routes = [
         component: AllChallengesComponent
     },
     {
+        path: 'joinedchallenges',
+        component: JoinedChallengesComponent
+    },
+    {
         path: 'challenges/challenge/:id',
         component: ChallengeComponent,
         resolve: {
@@ -26,6 +31,19 @@ const routes: Routes = [
     },
     {
         path: 'challenges/ranking/:id',
+        component: RankingComponent,
+        resolve: {
+            challenge: ChallengeDetailResolver
+        }
+    }, {
+        path: 'joinedchallenges/challenge/:id',
+        component: ChallengeComponent,
+        resolve: {
+            challenge: ChallengeDetailResolver
+        }
+    },
+    {
+        path: 'joinedchallenges/ranking/:id',
         component: RankingComponent,
         resolve: {
             challenge: ChallengeDetailResolver

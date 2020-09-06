@@ -19,9 +19,7 @@ export class AllChallengesComponent implements OnInit {
       private segmentStoreService: SegmentStoreService,
       private athleteStoreService: AthleteStoreService,
       private effortStoreService: SegmentEffortStoreService,
-      private challengesStoreService: ChallengesStoreService,
-      private syncService: SyncService,
-      private loadService: LoaderService) {
+      private challengesStoreService: ChallengesStoreService) {
   }
 
   ngOnInit(): void {

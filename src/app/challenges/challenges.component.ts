@@ -28,8 +28,6 @@ export class ChallengesComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.challenges$ = Challenge.loadAll(this.challengesStoreService, this.athleteStoreService,
-            this.segmentStoreService, this.effortStoreService);
     }
 
     athleteInfoAvailable(): boolean {
