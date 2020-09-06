@@ -5,6 +5,7 @@ import {AthleteStoreService} from './athlete-store.service';
 import {AthleteStoreDto} from './athlete.store.dto';
 import {AthleteStravaService} from './athlete-strava.service';
 import {map} from 'rxjs/operators';
+import {Challenge} from '../challenge/challenge';
 
 export class Athlete {
     static USER_INFO = 'userInfo';
@@ -84,8 +85,12 @@ export class Athlete {
         }
     }
 
-    isIn(athleteIds: string[]): boolean {
-        return athleteIds == null ? false : athleteIds.includes(this.id);
+    isIn(challenge: Challenge): boolean {
+        return challenge.isIn(this);
+    }
+
+    isInList(athletes: Athlete[]): boolean {
+        return athletes.filter( inArray => inArray.id === this.id).length > 0;
     }
 }
 

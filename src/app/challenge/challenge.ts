@@ -68,6 +68,17 @@ export class Challenge {
             }));
     }
 
+    static loadAll(challengesStoreService: ChallengesStoreService,
+                   athleteStoreService: AthleteStoreService,
+                   segmentStoreService: SegmentStoreService,
+                   effortStoreService: SegmentEffortStoreService): Observable<Challenge[]> {
+        return challengesStoreService.challenges()
+            .pipe(mergeMap(dtos =>
+                forkJoin(...dtos.map(dto => this.createChallenge(
+                    segmentStoreService, athleteStoreService,
+                    effortStoreService, dto)))));
+    }
+
     toAthleteResult(): AthleteResult[] {
         return AthleteResult.from(this.athletes, this.efforts, this.segments);
     }
@@ -94,7 +105,11 @@ export class Challenge {
         return this;
     }
 
-    public save(service: ChallengesStoreService) {
-        service.add(this.toDtoStore());
+    public save(service: ChallengesStoreService): Observable<any> {
+        return service.add(this.toDtoStore());
+    }
+
+    isIn(athlete: Athlete) {
+        return this.athletes == null ? false : athlete.isInList(this.athletes);
     }
 }

@@ -4,6 +4,10 @@ import {Observable} from 'rxjs';
 import {Athlete} from '../athlete/athlete';
 import {LoaderService} from '../layout/loader/loader.service';
 import {SyncService} from '../sync.service';
+import {Challenge} from '../challenge/challenge';
+import {SegmentStoreService} from '../segment/segment-store.serivce';
+import {AthleteStoreService} from '../athlete/athlete-store.service';
+import {SegmentEffortStoreService} from '../segment.effort/segment-effort-store.service';
 
 @Component({
     selector: 'app-challenges',
@@ -11,15 +15,21 @@ import {SyncService} from '../sync.service';
     styleUrls: ['./challenges.component.css']
 })
 export class ChallengesComponent implements OnInit {
-    challenges$: Observable<ChallengeStoreDto[]>;
+    challenges$: Observable<Challenge[]>;
     athlete: Athlete;
 
-    constructor(private service: ChallengesStoreService, private syncService: SyncService,
-                private loadService: LoaderService) {
+    constructor(
+        private segmentStoreService: SegmentStoreService,
+        private athleteStoreService: AthleteStoreService,
+        private effortStoreService: SegmentEffortStoreService,
+        private challengesStoreService: ChallengesStoreService,
+        private syncService: SyncService,
+        private loadService: LoaderService) {
     }
 
     ngOnInit(): void {
-        this.challenges$ = this.service.challenges();
+        this.challenges$ = Challenge.loadAll(this.challengesStoreService, this.athleteStoreService,
+            this.segmentStoreService, this.effortStoreService);
     }
 
     athleteInfoAvailable(): boolean {
@@ -27,15 +37,15 @@ export class ChallengesComponent implements OnInit {
         return this.athlete !== undefined;
     }
 
-    join(challengeStoreDto: ChallengeStoreDto) {
+    join(challenge: Challenge) {
         this.loadService.showLoader();
-        challengeStoreDto.athleteIds = this.athlete.add(challengeStoreDto.athleteIds);
-        this.service.add(challengeStoreDto).subscribe(() => {
+        challenge.join(this.athlete);
+        challenge.save(this.challengesStoreService).subscribe(() => {
             this.syncService.start(this.loadService);
         });
     }
 
-    belongsTo(challengeStoreDto: ChallengeStoreDto): boolean {
-        return this.athlete.isIn(challengeStoreDto.athleteIds);
+    belongsTo(challenge: Challenge): boolean {
+        return this.athlete.isIn(challenge);
     }
 }
