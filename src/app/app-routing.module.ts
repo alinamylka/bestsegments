@@ -10,6 +10,10 @@ import {RankingComponent} from './ranking/ranking.component';
 
 const routes: Routes = [
     {
+        path: '',
+        component: ChallengesComponent
+    },
+    {
         path: 'challenges',
         component: ChallengesComponent
     },
