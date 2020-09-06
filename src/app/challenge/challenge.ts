@@ -68,6 +68,17 @@ export class Challenge {
             }));
     }
 
+    static loadAllCreatedBy(createdBy: string, challengesStoreService: ChallengesStoreService,
+                            athleteStoreService: AthleteStoreService,
+                            segmentStoreService: SegmentStoreService,
+                            effortStoreService: SegmentEffortStoreService): Observable<Challenge[]> {
+        return challengesStoreService.challenges()
+            .pipe(mergeMap(dtos =>
+                forkJoin(...dtos.map(dto => this.createChallenge(
+                    segmentStoreService, athleteStoreService,
+                    effortStoreService, dto)))));
+    }
+
     static loadAll(challengesStoreService: ChallengesStoreService,
                    athleteStoreService: AthleteStoreService,
                    segmentStoreService: SegmentStoreService,

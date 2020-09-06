@@ -19,6 +19,7 @@ import {LayoutModule} from './layout/layout.module';
 import {LoaderService} from './layout/loader/loader.service';
 import { AddChallengeComponent } from './add-challenge/add-challenge.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { AllChallengesComponent } from './all-challenges/all-challenges.component';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import {ReactiveFormsModule} from '@angular/forms';
         ChallengeComponent,
         ChallengesComponent,
         RankingComponent,
-        AddChallengeComponent
+        AddChallengeComponent,
+        AllChallengesComponent
     ],
     imports: [
         MatListModule,

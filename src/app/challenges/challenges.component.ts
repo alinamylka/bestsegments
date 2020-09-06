@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ChallengesStoreService, ChallengeStoreDto} from './challenges-store.service';
 import {Observable} from 'rxjs';
 import {Athlete} from '../athlete/athlete';
@@ -15,7 +15,7 @@ import {SegmentEffortStoreService} from '../segment.effort/segment-effort-store.
     styleUrls: ['./challenges.component.css']
 })
 export class ChallengesComponent implements OnInit {
-    challenges$: Observable<Challenge[]>;
+    @Input() challenges$: Observable<Challenge[]>;
     athlete: Athlete;
 
     constructor(

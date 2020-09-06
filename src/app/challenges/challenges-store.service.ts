@@ -22,7 +22,8 @@ export interface ChallengeStoreDto {
 export class ChallengesStoreService {
 
     private ALL = environment.storeUrl + 'challenges/all';
-    private BY_ATHLETE_ID_URL = environment.storeUrl + 'challenges/athlete';
+    private BY_ATHLETE_ID = environment.storeUrl + 'challenges/athlete';
+    private CREATED_BY = environment.storeUrl + 'challenges/createdby';
     private ADD = environment.storeUrl + 'challenges/add';
 
     constructor(private http: HttpClient) {
@@ -39,8 +40,14 @@ export class ChallengesStoreService {
 
     byAthleteId(id: string): Observable<ChallengeStoreDto[]> {
         return this.http.get<ChallengeStoreDto[]>(
-            this.BY_ATHLETE_ID_URL + '/' + id, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
+            this.BY_ATHLETE_ID + '/' + id, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
     }
+
+    createdBy(id: string): Observable<ChallengeStoreDto[]> {
+        return this.http.get<ChallengeStoreDto[]>(
+            this.CREATED_BY + '/' + id, {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})});
+    }
+
 
     add(challenge: ChallengeStoreDto): Observable<any> {
         return this.http.post(this.ADD, challenge);
