@@ -7,7 +7,7 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
     title = 'Best Segments';
-    subtitle = 'Alina Mylka';
+    subtitle = 'ALINA MYLKA';
 
     constructor() {
     }
