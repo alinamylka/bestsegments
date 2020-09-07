@@ -29,7 +29,7 @@ export class SyncComponent implements OnInit {
 
     public hasToken() {
         const hasToken = this.authService.hasToken();
-        if (hasToken) {
+        if (hasToken && !this.athlete()) {
             Athlete.load(this.athleteService).subscribe(athlete =>
                 athlete.saveToStore(this.athleteStore).subscribe(
                     () => athlete.saveToLocalStorage()
