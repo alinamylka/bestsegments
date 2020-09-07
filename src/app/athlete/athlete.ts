@@ -18,7 +18,7 @@ export class Athlete {
                 private state: string,
                 public country: string,
                 private sex: string,
-                private premium: boolean,
+                public premium: boolean,
                 private summit: boolean,
                 private createdAt: string,
                 private updatedAt: string,
