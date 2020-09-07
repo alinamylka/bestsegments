@@ -17,7 +17,7 @@ export class AthleteComponent implements OnInit {
         stravaService.athleteInfo()
             .subscribe((data: AthleteStravaDto) => {
                 this.athlete = Athlete.initFromStrava(data);
-                this.athlete.save(storeService);
+                this.athlete.saveToStore(storeService);
             });
     }
 

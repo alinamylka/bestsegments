@@ -31,9 +31,9 @@ export class SyncService {
         loaderService.showLoader();
         Athlete.load(this.athleteStravaService)
             .subscribe(athlete => athlete
-                .save(this.athleteStoreService)
-                .challenges(this.challengeService)
-                .subscribe(challenges => this.syncEfforts(challenges)));
+                .saveToStore(this.athleteStoreService).subscribe(() =>
+                    athlete.challenges(this.challengeService)
+                        .subscribe(challenges => this.syncEfforts(challenges))));
 
         this.challengeService.challenges()
             .pipe(mergeMap(challenges => this.segmentStravaService

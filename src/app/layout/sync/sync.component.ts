@@ -3,8 +3,8 @@ import {SyncService} from '../../sync.service';
 import {AuthorizeService} from '../authorize/authorize.service';
 import {AthleteStravaService} from '../../athlete/athlete-strava.service';
 import {Athlete} from '../../athlete/athlete';
-import {Observable} from 'rxjs';
 import {LoaderService} from '../loader/loader.service';
+import {AthleteStoreService} from '../../athlete/athlete-store.service';
 
 @Component({
     selector: 'app-sync',
@@ -16,8 +16,10 @@ export class SyncComponent implements OnInit {
     constructor(private syncService: SyncService,
                 private authService: AuthorizeService,
                 private athleteService: AthleteStravaService,
+                private athleteStore: AthleteStoreService,
                 private loaderService: LoaderService) {
     }
+
     public athlete(): Athlete {
         return Athlete.loadToLocalStorage();
     }
@@ -28,7 +30,11 @@ export class SyncComponent implements OnInit {
     public hasToken() {
         const hasToken = this.authService.hasToken();
         if (hasToken) {
-            Athlete.saveToLocalStorage(this.athleteService);
+            Athlete.load(this.athleteService).subscribe(athlete =>
+                athlete.saveToStore(this.athleteStore).subscribe(
+                    () => athlete.saveToLocalStorage()
+                )
+            );
         }
         return hasToken;
 

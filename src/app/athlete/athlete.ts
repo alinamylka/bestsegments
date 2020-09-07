@@ -67,9 +67,14 @@ export class Athlete {
         return userInfo ? this.initFromStrava(JSON.parse(userInfo)) : undefined;
     }
 
-    save(service: AthleteStoreService): Athlete {
-        service.addAthlete(this).subscribe();
-        return this;
+    saveToLocalStorage() {
+        if (!window.localStorage.getItem(Athlete.USER_INFO)) {
+            window.localStorage.setItem(Athlete.USER_INFO, JSON.stringify(this));
+        }
+    }
+
+    saveToStore(service: AthleteStoreService): Observable<any> {
+        return service.addAthlete(this);
     }
 
     challenges(challengeStoreService: ChallengesStoreService): Observable<ChallengeStoreDto[]> {
@@ -90,11 +95,11 @@ export class Athlete {
     }
 
     isInList(athletes: Athlete[]): boolean {
-        return athletes.filter( inArray => inArray.id === this.id).length > 0;
+        return athletes.filter(inArray => inArray.id === this.id).length > 0;
     }
 
     leave(athletes: Athlete[]): Athlete[] {
-        return athletes.filter( inArray => inArray.id !== this.id);
+        return athletes.filter(inArray => inArray.id !== this.id);
     }
 }
 
