@@ -15,9 +15,10 @@ export class SegmentEffortStoreService {
     constructor(private http: HttpClient) {
     }
 
-    findBestSegmentEfforts(segmentIds: string[], startDate: Date, endDate: Date): Observable<SegmentEffortStoreDto> {
+    findBestSegmentEfforts(segmentIds: string[], athleteIds: string[], startDate: Date, endDate: Date): Observable<SegmentEffortStoreDto> {
         const url = SegmentEffortStoreService.BEST_PRO_ATHLETE_BY_SEGMENT_ID
             + '/' + segmentIds
+            + '/' + athleteIds
             + '/' + startDate.toISOString()
             + '/' + endDate.toISOString();
         return this.http.get<SegmentEffortStoreDto>(url);

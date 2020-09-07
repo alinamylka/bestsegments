@@ -51,7 +51,7 @@ export class Challenge {
         const athletes$ = challengeDto.athleteIds ?
             athleteStoreService.athletesByIds(challengeDto.athleteIds) : of([]);
         const efforts$ = challengeDto.segmentIds ?
-            effortStoreService.findBestSegmentEfforts(challengeDto.segmentIds, startDate, endDate) : of([]);
+            effortStoreService.findBestSegmentEfforts(challengeDto.segmentIds, challengeDto.athleteIds, startDate, endDate) : of([]);
         const createdBy$ = athleteStoreService.athletesById(challengeDto.createdBy);
         return forkJoin<AthleteStoreDto[], SegmentStoreDto[], SegmentEffortStoreDto[], AthleteStoreDto>(
             [athletes$, segments$, efforts$, createdBy$])
@@ -85,7 +85,10 @@ export class Challenge {
 
     }
 
-    private static createChallenges(challengeDtos: Observable<ChallengeStoreDto[]>, segmentStoreService: SegmentStoreService, athleteStoreService: AthleteStoreService, effortStoreService: SegmentEffortStoreService) {
+    private static createChallenges(challengeDtos: Observable<ChallengeStoreDto[]>,
+                                    segmentStoreService: SegmentStoreService,
+                                    athleteStoreService: AthleteStoreService,
+                                    effortStoreService: SegmentEffortStoreService) {
         return challengeDtos
             .pipe(mergeMap(dtos =>
                 forkJoin(...dtos.map(dto => this.createChallenge(
@@ -136,5 +139,9 @@ export class Challenge {
 
     isIn(athlete: Athlete) {
         return this.athletes == null ? false : athlete.isInList(this.athletes);
+    }
+
+    leave(athlete: Athlete) {
+        this.athletes = athlete.leave(this.athletes);
     }
 }

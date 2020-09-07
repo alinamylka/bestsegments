@@ -92,5 +92,9 @@ export class Athlete {
     isInList(athletes: Athlete[]): boolean {
         return athletes.filter( inArray => inArray.id === this.id).length > 0;
     }
+
+    leave(athletes: Athlete[]): Athlete[] {
+        return athletes.filter( inArray => inArray.id !== this.id);
+    }
 }
 

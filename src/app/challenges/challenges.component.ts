@@ -52,4 +52,12 @@ export class ChallengesComponent implements OnInit {
     belongsTo(challenge: Challenge): boolean {
         return this.athlete.isIn(challenge);
     }
+
+    leave(challenge: Challenge) {
+        this.loadService.showLoader();
+        challenge.leave(this.athlete);
+        challenge.save(this.challengesStoreService).subscribe(() => {
+            this.syncService.start(this.loadService);
+        });
+    }
 }
