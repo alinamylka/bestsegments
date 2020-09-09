@@ -1,9 +1,5 @@
-<div *ngIf="hasToken()" class="container">
-    <div class="center-card">
-        <div class="center-message">
-            Hi  {{athlete().firstname}}
-            <button *ngIf="athlete().premium" (click)="syncClick()">Sync efforts</button>
-            <span *ngIf="!athlete().premium">You need premium strava account to sync your efforts.</span>
-        </div>
-    </div>
+<div *ngIf="hasToken()">
+    Hi  {{athlete().firstname}}
+    <button *ngIf="athlete().premium" (click)="syncClick()">Sync efforts</button>
+    <span *ngIf="!athlete().premium">You need premium strava account to sync your efforts.</span>
 </div>
