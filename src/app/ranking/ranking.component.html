@@ -4,7 +4,7 @@
     <mat-list-item *ngFor="let result of athleteResults">
         <img matListAvatar src="{{result.athlete.profile}}">
         <h2 matLine> {{result.athlete.firstname}} {{result.athlete.lastname}}</h2>
-        <h2 matLine> Total seconds: {{formatSeconds(result.totalTime)}}</h2>
+        <h2 matLine> Total time: {{formatSeconds(result.totalTime)}}</h2>
         <h2 matLine> Completed segments: {{result.completedSegments}}</h2>
         <h2 matLine> Segments results:
             <div matLine *ngFor="let effort of result.efforts">
