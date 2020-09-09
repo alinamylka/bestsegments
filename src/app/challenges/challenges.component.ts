@@ -9,6 +9,7 @@ import {SegmentStoreService} from '../segment/segment-store.serivce';
 import {AthleteStoreService} from '../athlete/athlete-store.service';
 import {SegmentEffortStoreService} from '../segment.effort/segment-effort-store.service';
 import {Router} from '@angular/router';
+import {AuthorizeService} from '../layout/authorize/authorize.service';
 
 @Component({
     selector: 'app-challenges',
@@ -22,6 +23,7 @@ export class ChallengesComponent implements OnInit {
 
     constructor(
         private router: Router,
+        private authService: AuthorizeService,
         private segmentStoreService: SegmentStoreService,
         private athleteStoreService: AthleteStoreService,
         private effortStoreService: SegmentEffortStoreService,
@@ -40,7 +42,7 @@ export class ChallengesComponent implements OnInit {
 
     athleteInfoAvailable(): boolean {
         this.athlete = Athlete.loadToLocalStorage();
-        return this.athlete !== undefined;
+        return this.athlete !== undefined && this.authService.hasToken();
     }
 
     join(challenge: Challenge) {

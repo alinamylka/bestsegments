@@ -6,13 +6,13 @@
         <div class="col-sm">
             <a routerLink="ranking/{{challenge.id}}"> Ranking </a>
         </div>
-        <div class="col-sm" *ngIf="athleteInfoAvailable()">
-            <button type="button" class="btn btn-primary" [disabled]="belongsTo(challenge)" (click)="join(challenge)">
+        <div class="col-sm">
+            <button *ngIf="athleteInfoAvailable()" type="button" class="btn btn-primary" [disabled]="belongsTo(challenge)" (click)="join(challenge)">
                 Join
             </button>
         </div>
-        <div class="col-sm" *ngIf="athleteInfoAvailable()">
-            <button type="button" class="btn btn-primary" (click)="leave(challenge)">Leave</button>
+        <div class="col-sm" >
+            <button *ngIf="athleteInfoAvailable()" type="button" class="btn btn-primary" (click)="leave(challenge)">Leave</button>
         </div>
         <div class="col-sm">
             <a *ngIf="athleteInfoAvailable() && owns(challenge)" type="button" class="btn btn-primary"
