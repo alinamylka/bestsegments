@@ -1,5 +1,4 @@
 <div *ngIf="hasToken()">
-    Hi  {{athlete().firstname}}
-    <button *ngIf="athlete().premium" (click)="syncClick()">Sync efforts</button>
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" *ngIf="athlete().premium" (click)="syncClick()">Hi {{athlete().firstname}} sync your efforts</button>
     <span *ngIf="!athlete().premium">You need premium strava account to sync your efforts.</span>
 </div>
