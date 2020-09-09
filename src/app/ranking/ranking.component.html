@@ -1,5 +1,5 @@
 <h2>{{challenge.name}} Challenge Ranking</h2>
-<h5>active from {{challenge.startDate |  date:'yyyy-MM-dd HH:mm'}} until {{challenge.endDate| date:'yyyy-MM-dd HH:mm'}}</h5>
+<h5>active from {{challenge.startDate |  date:'yyyy-MM-dd HH:mm'}} to {{challenge.endDate| date:'yyyy-MM-dd HH:mm'}}</h5>
 <mat-list>
     <mat-list-item *ngFor="let result of athleteResults">
         <img matListAvatar src="{{result.athlete.profile}}">
