@@ -28,16 +28,7 @@ export class SyncComponent implements OnInit {
     }
 
     public hasToken() {
-        const hasToken = this.authService.hasToken();
-        if (hasToken && this.athlete() === undefined){
-            Athlete.load(this.athleteService).subscribe(athlete =>
-                athlete.saveToStore(this.athleteStore).subscribe(
-                    () => athlete.saveToLocalStorage()
-                )
-            );
-        }
-        return hasToken;
-
+        return this.authService.hasToken();
     }
 
     public syncClick() {
