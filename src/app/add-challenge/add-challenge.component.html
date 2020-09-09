@@ -44,9 +44,10 @@
                         </div>
                     </div>
                     <button type="submit" [disabled]="myForm.invalid" (click)="addChallenge()"
-                            class="btn btn-primary">Submit
+                            class="btn btn-primary btn-space">Submit
                     </button>
-                    <button class="btn btn-default" (click)="myForm.reset()">Reset</button>
+                    <button class="btn btn-default btn-space" (click)="myForm.reset()">Reset</button>
+                    <button class="btn btn-default btn-space" (click)="goBack()">Cancel</button>
                 </form>
             </div>
         </div>

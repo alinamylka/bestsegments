@@ -10,13 +10,17 @@ import {Challenge} from '../challenge/challenge';
 })
 export class RankingComponent implements OnInit {
     public athleteResults: AthleteResult[];
+    public challenge: Challenge;
 
     constructor(private route: ActivatedRoute) {
     }
 
     ngOnInit(): void {
         this.route.data
-            .subscribe((data: { challenge: Challenge }) => this.athleteResults = data.challenge.toAthleteResult());
+            .subscribe((data: { challenge: Challenge }) => {
+                this.athleteResults = data.challenge.toAthleteResult();
+                this.challenge = data.challenge;
+            });
     }
 
     formatSeconds(secs): string {

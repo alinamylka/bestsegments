@@ -98,4 +98,8 @@ export class AddChallengeComponent implements OnInit {
             athleteIds: this.challenge ? Athlete.ids(this.challenge.athletes) : []
         };
     }
+
+    goBack() {
+        this.location.back();
+    }
 }
