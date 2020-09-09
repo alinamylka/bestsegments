@@ -144,4 +144,8 @@ export class Challenge {
     leave(athlete: Athlete) {
         this.athletes = athlete.leave(this.athletes);
     }
+
+    isCreatedBy(athlete: Athlete): boolean {
+        return this.createdBy.equals(athlete);
+    }
 }

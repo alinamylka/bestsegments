@@ -35,6 +35,13 @@ const routes: Routes = [
         }
     },
     {
+        path: 'challenges/edit/:id',
+        component: AddChallengeComponent,
+        resolve: {
+            challenge: ChallengeDetailResolver
+        }
+    },
+    {
         path: 'challenges/ranking/:id',
         component: RankingComponent,
         resolve: {
@@ -43,6 +50,12 @@ const routes: Routes = [
     }, {
         path: 'joinedchallenges/challenge/:id',
         component: ChallengeComponent,
+        resolve: {
+            challenge: ChallengeDetailResolver
+        }
+    }, {
+        path: 'joinedchallenges/edit/:id',
+        component: AddChallengeComponent,
         resolve: {
             challenge: ChallengeDetailResolver
         }
@@ -63,6 +76,13 @@ const routes: Routes = [
     {
         path: 'createdchallenges/ranking/:id',
         component: RankingComponent,
+        resolve: {
+            challenge: ChallengeDetailResolver
+        }
+    },
+    {
+        path: 'createdchallenges/edit/:id',
+        component: AddChallengeComponent,
         resolve: {
             challenge: ChallengeDetailResolver
         }

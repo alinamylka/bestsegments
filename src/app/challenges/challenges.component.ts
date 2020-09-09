@@ -8,6 +8,7 @@ import {Challenge} from '../challenge/challenge';
 import {SegmentStoreService} from '../segment/segment-store.serivce';
 import {AthleteStoreService} from '../athlete/athlete-store.service';
 import {SegmentEffortStoreService} from '../segment.effort/segment-effort-store.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-challenges',
@@ -20,6 +21,7 @@ export class ChallengesComponent implements OnInit {
     challenges: Challenge[];
 
     constructor(
+        private router: Router,
         private segmentStoreService: SegmentStoreService,
         private athleteStoreService: AthleteStoreService,
         private effortStoreService: SegmentEffortStoreService,
@@ -30,7 +32,7 @@ export class ChallengesComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadService.showLoader();
-        this.challenges$.subscribe( data => {
+        this.challenges$.subscribe(data => {
             this.challenges = data;
             this.loadService.hideLoader();
         });
@@ -59,5 +61,9 @@ export class ChallengesComponent implements OnInit {
         challenge.save(this.challengesStoreService).subscribe(() => {
             this.syncService.start(this.loadService);
         });
+    }
+
+    owns(challenge: Challenge) {
+        return challenge.isCreatedBy(this.athlete);
     }
 }

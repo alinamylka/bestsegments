@@ -95,11 +95,15 @@ export class Athlete {
     }
 
     isInList(athletes: Athlete[]): boolean {
-        return athletes.filter(inArray => inArray.id === this.id).length > 0;
+        return athletes.filter(inArray => inArray.equals(this)).length > 0;
     }
 
     leave(athletes: Athlete[]): Athlete[] {
-        return athletes.filter(inArray => inArray.id !== this.id);
+        return athletes.filter(inArray => !inArray.equals(this));
+    }
+
+    equals(athlete: Athlete): boolean {
+        return this.id === athlete.id;
     }
 }
 

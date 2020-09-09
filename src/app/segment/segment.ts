@@ -48,4 +48,5 @@ export class Segment {
     public findBestEfforts(router: Router): Observable<SegmentEffortStravaDto[]> {
         router.navigate(['/segment-efforts'], {queryParams: {segmentId: this.id}});
     }
+
 }
